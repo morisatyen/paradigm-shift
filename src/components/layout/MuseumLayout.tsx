@@ -31,7 +31,7 @@ const MuseumLayout = () => {
             <span className="text-sidebar-foreground font-heading font-semibold text-lg tracking-tight">Paradigm Shift</span>
           </Link>
         </div>
-        <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto scrollbar-hide">
           {NAV.map(n => {
             const active = pathname === n.to || (n.to !== "/museum" && pathname.startsWith(n.to));
             return (

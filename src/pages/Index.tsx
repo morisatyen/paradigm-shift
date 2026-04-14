@@ -11,11 +11,23 @@ const Index = () => (
     {/* Nav */}
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">P</span>
-          </div>
-          <span className="font-heading font-semibold text-lg text-foreground tracking-tight">Paradigm <span className="text-secondary">Shift</span></span>
+        <Link to="/" className="flex items-center gap-3">
+          <span className="font-bold text-xl tracking-widest" style={{ color: '#0D2D5E', fontFamily: 'sans-serif', letterSpacing: '0.12em' }}>PARADIGM</span>
+          <svg width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Top face - light gray */}
+            <polygon points="19,1 37,10 19,17 1,8" fill="#C8C8C8"/>
+            {/* Right face - blue */}
+            <polygon points="37,10 37,24 19,31 19,17" fill="#4A9FD4"/>
+            {/* Left face - dark navy */}
+            <polygon points="1,8 19,17 19,31 1,22" fill="#1B3A6B"/>
+            {/* Inner top face */}
+            <polygon points="19,6 31,12 19,18 7,12" fill="#E8E8E8"/>
+            {/* Inner right face */}
+            <polygon points="31,12 31,22 19,27 19,18" fill="#2E7BB5"/>
+            {/* Inner left face */}
+            <polygon points="7,12 19,18 19,27 7,21" fill="#0E2347"/>
+          </svg>
+          <span className="font-bold text-xl tracking-widest" style={{ color: '#0D2D5E', fontFamily: 'sans-serif', letterSpacing: '0.12em' }}>SHIFT</span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <a href="#how-it-works" className="hover:text-foreground transition-colors">How It Works</a>
@@ -42,7 +54,7 @@ const Index = () => (
           </p>
           <div className="flex gap-4">
             <Link to="/login"><Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">Start Investing <ArrowRight className="w-4 h-4 ml-2" /></Button></Link>
-            <Link to="/login"><Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Museum Partners</Button></Link>
+            <Link to="/login"><Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent">Museum Partners</Button></Link>
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
