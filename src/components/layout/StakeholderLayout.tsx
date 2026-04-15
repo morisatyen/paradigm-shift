@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LayoutDashboard, Search, Vote, Gift, LogOut, UserCheck, Menu, X } from "lucide-react";
+import { LayoutDashboard, Search, Vote, Gift, LogOut, UserCheck, Menu, X, Leaf, Heart, ArrowLeftRight } from "lucide-react";
 
 const NAV = [
   { to: "/stakeholder", icon: LayoutDashboard, label: "Portfolio" },
   { to: "/stakeholder/discover", icon: Search, label: "Discover" },
+  { to: "/stakeholder/secondary-market", icon: ArrowLeftRight, label: "Secondary Market" },
+  { to: "/stakeholder/impact", icon: Leaf, label: "Impact Metrics" },
+  { to: "/stakeholder/donor", icon: Heart, label: "Donor–Investor" },
   { to: "/stakeholder/governance", icon: Vote, label: "Governance" },
   { to: "/stakeholder/benefits", icon: Gift, label: "Benefits" },
   { to: "/stakeholder/onboarding", icon: UserCheck, label: "KYC/AML" },

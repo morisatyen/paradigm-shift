@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ARTWORKS } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LayoutGrid, List, Search } from "lucide-react";
+import { LayoutGrid, List, Search, Plus, Eye } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 const Collection = () => {
+  const navigate = useNavigate();
   const [view, setView] = useState<"grid" | "table">("grid");
   const [search, setSearch] = useState("");
   const filtered = ARTWORKS.filter(a => a.title.toLowerCase().includes(search.toLowerCase()) || a.artist.toLowerCase().includes(search.toLowerCase()));
@@ -23,6 +25,7 @@ const Collection = () => {
             <button onClick={() => setView("grid")} className={`p-2 ${view === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground"} rounded-l-lg`}><LayoutGrid className="w-4 h-4" /></button>
             <button onClick={() => setView("table")} className={`p-2 ${view === "table" ? "bg-primary text-primary-foreground" : "text-muted-foreground"} rounded-r-lg`}><List className="w-4 h-4" /></button>
           </div>
+          <Button onClick={() => navigate("/museum/collection/add")}><Plus className="w-4 h-4 mr-2" />Add Collection</Button>
         </div>
       </div>
 
@@ -30,7 +33,10 @@ const Collection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map(a => (
             <div key={a.id} className="glass-card rounded-xl overflow-hidden">
-              <div className="aspect-[4/3] overflow-hidden"><img src={a.image} alt={a.title} className="w-full h-full object-cover" /></div>
+              <div className="aspect-[4/3] overflow-hidden relative">
+                <img src={a.image} alt={a.title} className="w-full h-full object-cover" />
+                <button onClick={() => navigate(`/museum/collection/${a.id}`)} className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors"><Eye className="w-4 h-4" /></button>
+              </div>
               <div className="p-5">
                 <div className="text-xs text-muted-foreground">{a.artist}, {a.year}</div>
                 <h3 className="font-semibold text-foreground mt-1 mb-3">{a.title}</h3>
@@ -41,9 +47,9 @@ const Collection = () => {
                     <div className="bg-secondary rounded-full" style={{ width: `${a.investorOwnership}%` }} />
                   </div>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between items-center text-sm">
                   <span className="text-foreground font-semibold">${(a.currentValue / 1e6).toFixed(1)}M</span>
-                  <span className={`text-success font-medium`}>+{a.appreciation}%</span>
+                  <span className="text-success font-medium">+{a.appreciation}%</span>
                 </div>
               </div>
             </div>
@@ -53,7 +59,7 @@ const Collection = () => {
         <div className="glass-card rounded-xl overflow-hidden">
           <table className="w-full">
             <thead><tr className="border-b border-border text-left">
-              {["Artwork", "Artist", "Value", "Ownership", "Yield", "Status"].map(h => <th key={h} className="p-4 text-xs font-medium text-muted-foreground">{h}</th>)}
+              {["Artwork", "Artist", "Value", "Ownership", "Yield", "Status", ""].map(h => <th key={h} className="p-4 text-xs font-medium text-muted-foreground">{h}</th>)}
             </tr></thead>
             <tbody>
               {filtered.map(a => (
@@ -64,6 +70,7 @@ const Collection = () => {
                   <td className="p-4"><div className="w-24"><Progress value={a.museumOwnership} className="h-2" /></div><span className="text-xs text-muted-foreground">{a.museumOwnership}% Museum</span></td>
                   <td className="p-4 text-sm text-success font-medium">{a.dividendYield}%</td>
                   <td className="p-4"><span className={`px-2 py-1 rounded-full text-xs font-medium ${a.status === "active" ? "bg-success/10 text-success" : "bg-warning/10 text-warning"}`}>{a.status}</span></td>
+                  <td className="p-4"><button onClick={() => navigate(`/museum/collection/${a.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"><Eye className="w-4 h-4" /></button></td>
                 </tr>
               ))}
             </tbody>
