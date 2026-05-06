@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LayoutDashboard, Image, GitBranch, Users, Shield, BarChart3, Landmark, Heart, Settings, Vote, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Image, GitBranch, Users, Shield, BarChart3, Landmark, Heart, Settings, Vote, LogOut, Menu, X, MessageSquare, Layers, Sparkles } from "lucide-react";
 
 const NAV = [
   { to: "/museum", icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/museum/collection", icon: Image, label: "Collection" },
-  { to: "/museum/reaccessioning", icon: GitBranch, label: "Reaccessioning" },
-  { to: "/museum/governance", icon: Vote, label: "Governance" },
-  { to: "/museum/blockchain", icon: Landmark, label: "Blockchain" },
-  { to: "/museum/compliance", icon: Shield, label: "Compliance" },
-  { to: "/museum/analytics", icon: BarChart3, label: "Analytics" },
-  { to: "/museum/stakeholders", icon: Users, label: "Stakeholders" },
-  { to: "/museum/community", icon: Heart, label: "Community" },
+  { to: "/museum/collection", icon: Image, label: "Artworks" },
+  { to: "/museum/collections-groups", icon: Layers, label: "Collections" },
+  { to: "/museum/experiences", icon: Sparkles, label: "Experiences" },
+  // { to: "/museum/reaccessioning", icon: GitBranch, label: "Reaccessioning" },
+  // { to: "/museum/governance", icon: Vote, label: "Governance" },
+  // { to: "/museum/blockchain", icon: Landmark, label: "Blockchain" },
+  // { to: "/museum/compliance", icon: Shield, label: "Compliance" },
+  // { to: "/museum/analytics", icon: BarChart3, label: "Analytics" },
+  // { to: "/museum/stakeholders", icon: Users, label: "Stakeholders" },
+  // { to: "/museum/community", icon: Heart, label: "Community" },
+  { to: "/museum/voting", icon: MessageSquare, label: "Visitor Votes" },
   { to: "/museum/settings", icon: Settings, label: "Settings" },
 ];
 

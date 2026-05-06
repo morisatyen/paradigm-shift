@@ -20,6 +20,11 @@ import Community from "./pages/museum/Community";
 import MuseumSettings from "./pages/museum/Settings";
 import AddCollection from "./pages/museum/AddCollection";
 import CollectionDetail from "./pages/museum/CollectionDetail";
+import VotingListings from "./pages/museum/VotingListings";
+import CollectionsGroups from "./pages/museum/CollectionsGroups";
+import Experiences from "./pages/museum/Experiences";
+import VisitorLogin from "./pages/visitor/VisitorLogin";
+import VisitorPoll from "./pages/visitor/VisitorPoll";
 import StakeholderLayout from "./components/layout/StakeholderLayout";
 import Portfolio from "./pages/stakeholder/Portfolio";
 import Discover from "./pages/stakeholder/Discover";
@@ -66,6 +71,9 @@ const App = () => (
               <Route path="stakeholders" element={<Stakeholders />} />
               <Route path="community" element={<Community />} />
               <Route path="settings" element={<MuseumSettings />} />
+              <Route path="voting" element={<VotingListings />} />
+              <Route path="collections-groups" element={<CollectionsGroups />} />
+              <Route path="experiences" element={<Experiences />} />
             </Route>
             <Route path="/stakeholder" element={<StakeholderLayout />}>
               <Route index element={<Portfolio />} />
@@ -79,6 +87,8 @@ const App = () => (
               <Route path="secondary-market" element={<SecondaryMarket />} />
             </Route>
             <Route path="*" element={<NotFound />} />
+            <Route path="/visitor/login" element={<VisitorLogin />} />
+            <Route path="/visitor/poll" element={<VisitorPoll />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ARTWORKS } from "@/data/mockData";
-import { ArrowLeft, Shield, History, Coins, BarChart3, Info, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, Shield, History, Coins, BarChart3, Info, Pencil, Trash2, QrCode, X, Download, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { QRCodeSVG } from "qrcode.react";
 
 const TABS = ["Overview", "Financials", "Token Info", "Provenance"];
 
@@ -11,7 +12,9 @@ const CollectionDetail = () => {
   const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showQR, setShowQR] = useState(false);
   const art = ARTWORKS.find(a => a.id === id) || ARTWORKS[0];
+  const qrUrl = `${window.location.origin}/visitor/login?type=collection&id=${art.id}`;
 
   return (
     <div className="p-8 max-w-5xl">
@@ -23,11 +26,59 @@ const CollectionDetail = () => {
           <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collection/${art.id}/edit`)}>
             <Pencil className="w-4 h-4 mr-1.5" />Edit
           </Button>
+          <Button variant="outline" size="sm" onClick={() => setShowQR(true)}>
+            <QrCode className="w-4 h-4 mr-1.5" />Visitor QR
+          </Button>
           <Button variant="outline" size="sm" className="text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => setShowDeleteConfirm(true)}>
             <Trash2 className="w-4 h-4 mr-1.5" />Delete
           </Button>
         </div>
       </div>
+
+      {/* QR Code Modal */}
+      {showQR && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-card rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="font-semibold text-foreground">Visitor QR Code</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">Place this near the artwork for visitors to scan</p>
+              </div>
+              <button onClick={() => setShowQR(false)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground"><X className="w-4 h-4" /></button>
+            </div>
+
+            <div className="flex flex-col items-center gap-4">
+              <div className="p-4 bg-white rounded-xl" id="qr-print-area">
+                <QRCodeSVG value={qrUrl} size={200} level="H" includeMargin />
+              </div>
+              <div className="text-center">
+                <p className="text-sm font-semibold text-foreground">{art.title}</p>
+                <p className="text-xs text-muted-foreground">{art.museum}</p>
+                <p className="text-xs text-muted-foreground mt-1">Scan to vote on this artwork</p>
+              </div>
+              <div className="w-full p-3 rounded-lg bg-muted">
+                <p className="text-xs text-muted-foreground break-all text-center">{qrUrl}</p>
+              </div>
+              <div className="flex gap-3 w-full">
+                <Button variant="outline" className="flex-1" onClick={() => window.print()}>
+                  <Printer className="w-4 h-4 mr-1.5" />Print
+                </Button>
+                <Button className="flex-1" onClick={() => {
+                  const svg = document.querySelector('#qr-print-area svg') as SVGElement;
+                  if (!svg) return;
+                  const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+                  const a = document.createElement('a');
+                  a.href = URL.createObjectURL(blob);
+                  a.download = `qr-${art.tokenSymbol}.svg`;
+                  a.click();
+                }}>
+                  <Download className="w-4 h-4 mr-1.5" />Download
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Delete Confirm Dialog */}
       {showDeleteConfirm && (

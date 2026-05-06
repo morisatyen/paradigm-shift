@@ -61,6 +61,29 @@ export const GOVERNANCE_PROPOSALS = [
   { id: "g3", title: "New Museum Partnership — Louvre Abu Dhabi", description: "Establish tokenization partnership with Louvre Abu Dhabi for 10 artworks.", status: "passed", votesFor: 11200, votesAgainst: 800, totalVoters: 12000, deadline: "2024-03-15", proposer: "Partnerships" },
 ];
 
+export const COLLECTIONS = [
+  { id: "col1", name: "Emotions Through Centuries", museum: "Metropolitan Museum of Art", description: "Five masterworks exploring the full spectrum of human emotion across five centuries.", artworks: ["1", "2", "3"], image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600", totalVotes: 1247, avgRating: 4.6 },
+  { id: "col2", name: "Light and Shadow Masters", museum: "Musée d'Orsay", description: "A journey through the Impressionist obsession with capturing fleeting light.", artworks: ["2", "6"], image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600", totalVotes: 893, avgRating: 4.8 },
+  { id: "col3", name: "The Golden Age", museum: "Mauritshuis", description: "Dutch and Flemish masterpieces from the 17th century golden age of painting.", artworks: ["4"], image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600", totalVotes: 654, avgRating: 4.4 },
+  { id: "col4", name: "East Meets West", museum: "Tokyo National Museum", description: "Where Eastern tradition and Western modernism converge in extraordinary works.", artworks: ["5", "6"], image: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f?w=600", totalVotes: 421, avgRating: 4.7 },
+];
+
+export const EXPERIENCES = [
+  { id: "exp1", title: "Private Viewing — After Hours", museum: "Metropolitan Museum of Art", collectionId: "col1", type: "Physical", description: "Exclusive after-hours private viewing of the Emotions Through Centuries collection. Just you and the masterworks.", date: "2024-06-15", time: "7:00 PM", capacity: 20, totalVotes: 342, avgRating: 4.9, image: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=600" },
+  { id: "exp2", title: "Curator Talk — Dr. Sarah Mitchell", museum: "Metropolitan Museum of Art", collectionId: "col1", type: "Talk", description: "Join Chief Curator Dr. Sarah Mitchell for an intimate discussion on the emotional power of Impressionism.", date: "2024-06-20", time: "3:00 PM", capacity: 50, totalVotes: 289, avgRating: 4.7, image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600" },
+  { id: "exp3", title: "Virtual Gallery Tour — Light Masters", museum: "Musée d'Orsay", collectionId: "col2", type: "Digital", description: "A guided virtual tour through the Light and Shadow Masters collection with live commentary.", date: "2024-06-25", time: "5:00 PM", capacity: 500, totalVotes: 567, avgRating: 4.5, image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600" },
+  { id: "exp4", title: "Conservation Workshop", museum: "Mauritshuis", collectionId: "col3", type: "Workshop", description: "Watch our conservation team restore a 17th century Dutch masterpiece up close.", date: "2024-07-05", time: "10:00 AM", capacity: 15, totalVotes: 198, avgRating: 4.8, image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600" },
+];
+
+export const VISITOR_VOTES = [
+  { id: "v1", phone: "+1 ***-***-1234", type: "collection", targetId: "col1", targetName: "Emotions Through Centuries", feeling: "Inspiring", rating: 5, relevant: "Yes", recommend: "Yes", timestamp: "2024-04-10 14:32", museum: "Metropolitan Museum of Art" },
+  { id: "v2", phone: "+1 ***-***-5678", type: "experience", targetId: "exp1", targetName: "Private Viewing — After Hours", feeling: "Peaceful", rating: 5, relevant: "Yes", recommend: "Yes", timestamp: "2024-04-10 15:10", museum: "Metropolitan Museum of Art" },
+  { id: "v3", phone: "+44 ***-***-9012", type: "collection", targetId: "col2", targetName: "Light and Shadow Masters", feeling: "Emotional", rating: 4, relevant: "Yes", recommend: "Yes", timestamp: "2024-04-10 16:45", museum: "Musée d'Orsay" },
+  { id: "v4", phone: "+81 ***-***-3456", type: "experience", targetId: "exp3", targetName: "Virtual Gallery Tour", feeling: "Thoughtful", rating: 4, relevant: "Yes", recommend: "Yes", timestamp: "2024-04-11 09:20", museum: "Musée d'Orsay" },
+  { id: "v5", phone: "+31 ***-***-7890", type: "collection", targetId: "col3", targetName: "The Golden Age", feeling: "Inspiring", rating: 5, relevant: "Yes", recommend: "Yes", timestamp: "2024-04-11 11:05", museum: "Mauritshuis" },
+  { id: "v6", phone: "+1 ***-***-2345", type: "experience", targetId: "exp2", targetName: "Curator Talk", feeling: "Thoughtful", rating: 5, relevant: "Yes", recommend: "Yes", timestamp: "2024-04-11 14:30", museum: "Metropolitan Museum of Art" },
+];
+
 export const BENEFITS_TIERS = [
   { tier: "Patron", minInvestment: 5000000, perks: ["Private gallery tours", "Annual gala invitation", "Direct artist access", "Priority token allocation", "Dedicated account manager", "Board meeting observer rights"], color: "gold" },
   { tier: "Collector", minInvestment: 500000, perks: ["Quarterly curator calls", "Exhibition previews", "NFT certificates", "Priority token allocation"], color: "secondary" },
