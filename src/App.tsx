@@ -23,6 +23,8 @@ import CollectionDetail from "./pages/museum/CollectionDetail";
 import VotingListings from "./pages/museum/VotingListings";
 import CollectionsGroups from "./pages/museum/CollectionsGroups";
 import Experiences from "./pages/museum/Experiences";
+import ExperienceDetail from "./pages/museum/ExperienceDetail";
+import AddExperience from "./pages/museum/AddExperience";
 import VisitorLogin from "./pages/visitor/VisitorLogin";
 import VisitorPoll from "./pages/visitor/VisitorPoll";
 import StakeholderLayout from "./components/layout/StakeholderLayout";
@@ -73,7 +75,32 @@ const App = () => (
               <Route path="settings" element={<MuseumSettings />} />
               <Route path="voting" element={<VotingListings />} />
               <Route path="collections-groups" element={<CollectionsGroups />} />
-              <Route path="experiences" element={<Experiences />} />
+              <Route path="collections-groups/add" element={
+                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
+                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center"><span className="text-3xl">🚧</span></div>
+                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
+                  <p className="text-muted-foreground text-sm max-w-xs">Add Collection Group feature is under development.</p>
+                  <a href="/museum/collections-groups" className="text-sm text-secondary hover:underline">← Back to Collections</a>
+                </div>
+              } />
+              <Route path="collections-groups/:id/edit" element={
+                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
+                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center"><span className="text-3xl">🚧</span></div>
+                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
+                  <p className="text-muted-foreground text-sm max-w-xs">Edit Collection feature is under development.</p>
+                  <a href="/museum/collections-groups" className="text-sm text-secondary hover:underline">← Back to Collections</a>
+                </div>
+              } />
+              <Route path="experiences/:id" element={<ExperienceDetail />} />
+              <Route path="experiences/add" element={<AddExperience />} />
+              <Route path="experiences/:id/edit" element={
+                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
+                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center"><span className="text-3xl">🚧</span></div>
+                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
+                  <p className="text-muted-foreground text-sm max-w-xs">Edit Experience feature is under development.</p>
+                  <a href="/museum/collections-groups" className="text-sm text-secondary hover:underline">← Back to Collections</a>
+                </div>
+              } />
             </Route>
             <Route path="/stakeholder" element={<StakeholderLayout />}>
               <Route index element={<Portfolio />} />

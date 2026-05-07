@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { COLLECTIONS, ARTWORKS } from "@/data/mockData";
+import { COLLECTIONS, ARTWORKS, EXPERIENCES } from "@/data/mockData";
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/button";
-import { QrCode, X, Download, Printer, Eye, Star, Users } from "lucide-react";
+import { QrCode, X, Download, Printer, Eye, Star, Calendar, Users, Plus, Pencil, Trash2 } from "lucide-react";
+
+const TYPE_COLORS: Record<string, string> = {
+  Physical: "bg-success/10 text-success",
+  Talk: "bg-secondary/10 text-secondary",
+  Digital: "bg-primary/10 text-primary",
+  Workshop: "bg-warning/10 text-warning",
+};
 
 const CollectionsGroups = () => {
   const navigate = useNavigate();
-  const [qrTarget, setQrTarget] = useState<{ id: string; name: string } | null>(null);
-  const qrUrl = qrTarget ? `${window.location.origin}/visitor/login?type=collection&id=${qrTarget.id}` : "";
+  const [qrTarget, setQrTarget] = useState<{ id: string; name: string; isExp?: boolean } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
+  const qrUrl = qrTarget ? `${window.location.origin}/visitor/login?type=${qrTarget.isExp ? "experience" : "collection"}&id=${qrTarget.id}` : "";
 
   return (
     <div className="p-8">
@@ -17,11 +25,15 @@ const CollectionsGroups = () => {
           <h1 className="text-2xl font-heading font-bold text-foreground">Collections</h1>
           <p className="text-muted-foreground text-sm mt-1">Curated artwork groups with visitor voting</p>
         </div>
+        {/* <Button onClick={() => navigate("/museum/collections-groups/add")}>
+          <Plus className="w-4 h-4 mr-2" />Add Collection
+        </Button> */}
       </div>
 
       <div className="space-y-6">
         {COLLECTIONS.map(col => {
           const artworks = ARTWORKS.filter(a => col.artworks.includes(a.id));
+          const experiences = EXPERIENCES.filter(e => e.collectionId === col.id);
           return (
             <div key={col.id} className="glass-card rounded-xl overflow-hidden">
               {/* Collection Header */}
@@ -39,6 +51,12 @@ const CollectionsGroups = () => {
                       <div className="flex items-center gap-1 text-sm font-semibold"><Star className="w-4 h-4 text-warning" />{col.avgRating}</div>
                       <div className="text-xs text-white/60">{col.totalVotes} votes</div>
                     </div>
+                    <button onClick={() => navigate(`/museum/collections-groups/${col.id}/edit`)} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    <button onClick={() => setDeleteTarget({ id: col.id, name: col.name })} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                     <Button size="sm" variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20" onClick={() => setQrTarget({ id: col.id, name: col.name })}>
                       <QrCode className="w-4 h-4 mr-1.5" />Visitor QR
                     </Button>
@@ -46,11 +64,16 @@ const CollectionsGroups = () => {
                 </div>
               </div>
 
-              {/* Artworks in this collection */}
-              <div className="p-5">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Artworks in this collection</span>
-                  <span className="text-xs bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{artworks.length}</span>
+              {/* Artworks */}
+              <div className="p-5 border-b border-border">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Artworks</span>
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{artworks.length}</span>
+                  </div>
+                  <button onClick={() => navigate(`/museum/collection/add`)} className="flex items-center gap-1 text-xs text-secondary hover:text-secondary/80 font-medium">
+                    + Add Artwork
+                  </button>
                 </div>
                 <div className="grid md:grid-cols-3 gap-4">
                   {artworks.map(a => (
@@ -67,6 +90,47 @@ const CollectionsGroups = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Experiences linked to this collection */}
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Experiences</span>
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{experiences.length}</span>
+                  </div>
+                  <button onClick={() => navigate(`/museum/experiences/add?collectionId=${col.id}`)} className="flex items-center gap-1 text-xs text-secondary hover:text-secondary/80 font-medium">
+                    + Add Experience
+                  </button>
+                </div>
+                {experiences.length === 0 ? (
+                  <p className="text-xs text-muted-foreground">No experiences linked to this collection yet.</p>
+                ) : (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {experiences.map(exp => (
+                      <div key={exp.id} className="flex gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+                        <img src={exp.image} alt={exp.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${TYPE_COLORS[exp.type] || "bg-muted text-muted-foreground"}`}>{exp.type}</span>
+                          </div>
+                          <div className="text-sm font-medium text-foreground truncate">{exp.title}</div>
+                          <div className="flex items-center gap-3 mt-1">
+                            <span className="text-xs text-muted-foreground flex items-center gap-1"><Calendar className="w-3 h-3" />{exp.date}</span>
+                            <span className="text-xs text-muted-foreground flex items-center gap-1"><Users className="w-3 h-3" />{exp.capacity}</span>
+                            <span className="text-xs text-warning">⭐ {exp.avgRating}</span>
+                          </div>
+                        </div>
+                        <button onClick={() => setQrTarget({ id: exp.id, name: exp.title, isExp: true })} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
+                          <QrCode className="w-4 h-4" />
+                        </button>
+                        <button onClick={() => navigate(`/museum/experiences/${exp.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
+                          <Eye className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -111,6 +175,27 @@ const CollectionsGroups = () => {
                   <Download className="w-4 h-4 mr-1.5" />Download
                 </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Delete Confirm Dialog */}
+      {deleteTarget && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-card rounded-xl p-6 max-w-sm w-full mx-4 shadow-xl">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0">
+                <Trash2 className="w-5 h-5 text-destructive" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">Delete Collection</h3>
+                <p className="text-xs text-muted-foreground">This action cannot be undone</p>
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground mb-5">Are you sure you want to delete <span className="font-medium text-foreground">{deleteTarget.name}</span>? All linked experiences will also be removed.</p>
+            <div className="flex gap-3">
+              <Button variant="outline" className="flex-1" onClick={() => setDeleteTarget(null)}>Cancel</Button>
+              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => setDeleteTarget(null)}>Delete</Button>
             </div>
           </div>
         </div>
