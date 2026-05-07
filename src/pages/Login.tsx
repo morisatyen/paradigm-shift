@@ -118,7 +118,7 @@ const Login = () => {
             <p className="text-xs text-muted-foreground font-medium mb-2">Demo Credentials</p>
             <div className="space-y-1 text-xs text-muted-foreground">
               <p><span className="font-mono font-medium text-foreground">museum@demo.com</span> — Museum Portal</p>
-              <p><span className="font-mono font-medium text-foreground">investor@demo.com</span> — Stakeholder Portal</p>
+              {/* <p><span className="font-mono font-medium text-foreground">investor@demo.com</span> — Stakeholder Portal</p> */}
             </div>
           </div>
         </div>
