@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { EXPERIENCES, COLLECTIONS } from "@/data/mockData";
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/button";
-import { QrCode, X, Download, Printer, Star, Users, Calendar, MapPin } from "lucide-react";
+import { QrCode, X, Download, Printer, Star, Users, Calendar, MapPin, Eye, Plus } from "lucide-react";
+import ContentTypeCards from "@/components/museum/ContentTypeCards";
 
 const TYPE_COLORS: Record<string, string> = {
   Physical: "bg-success/10 text-success",
@@ -12,61 +14,67 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 const Experiences = () => {
+  const navigate = useNavigate();
   const [qrTarget, setQrTarget] = useState<{ id: string; title: string } | null>(null);
   const qrUrl = qrTarget ? `${window.location.origin}/visitor/login?type=experience&id=${qrTarget.id}` : "";
 
   return (
     <div className="p-8">
+      <ContentTypeCards />
+
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-heading font-bold text-foreground">Experiences</h1>
-          <p className="text-muted-foreground text-sm mt-1">Museum experiences linked to collections</p>
+          <p className="text-muted-foreground text-sm mt-1">Standalone experiences that can optionally connect to collections and artworks</p>
         </div>
+        <Button onClick={() => navigate("/museum/collections-groups/experiences/add")}>
+          <Plus className="w-4 h-4 mr-2" />Add Experience
+        </Button>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {EXPERIENCES.map(exp => {
-          const collection = COLLECTIONS.find(c => c.id === exp.collectionId);
+        {EXPERIENCES.map((experience) => {
+          const collection = COLLECTIONS.find((item) => item.id === experience.collectionId);
+
           return (
-            <div key={exp.id} className="glass-card rounded-xl overflow-hidden">
+            <div key={experience.id} className="glass-card rounded-xl overflow-hidden">
               <div className="relative">
-                <img src={exp.image} alt={exp.title} className="w-full h-44 object-cover" />
+                <img src={experience.image} alt={experience.title} className="w-full h-44 object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute top-3 left-3">
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${TYPE_COLORS[exp.type] || "bg-muted text-muted-foreground"}`}>
-                    {exp.type}
+                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${TYPE_COLORS[experience.type] || "bg-muted text-muted-foreground"}`}>
+                    {experience.type}
                   </span>
                 </div>
                 <div className="absolute top-3 right-3">
-                  <button onClick={() => setQrTarget({ id: exp.id, title: exp.title })}
-                    className="p-2 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors">
+                  <button onClick={() => setQrTarget({ id: experience.id, title: experience.title })} className="p-2 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors">
                     <QrCode className="w-4 h-4" />
                   </button>
                 </div>
                 <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="text-white font-heading font-bold text-base leading-tight">{exp.title}</h3>
+                  <h3 className="text-white font-heading font-bold text-base leading-tight">{experience.title}</h3>
                 </div>
               </div>
 
               <div className="p-5 space-y-4">
-                <p className="text-sm text-muted-foreground">{exp.description}</p>
+                <p className="text-sm text-muted-foreground">{experience.description}</p>
 
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Calendar className="w-4 h-4 shrink-0" />
-                    <span>{exp.date} · {exp.time}</span>
+                    <span>{experience.date} - {experience.time}</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Users className="w-4 h-4 shrink-0" />
-                    <span>Capacity: {exp.capacity}</span>
+                    <span>Capacity: {experience.capacity}</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="w-4 h-4 shrink-0" />
-                    <span className="truncate">{exp.museum}</span>
+                    <span className="truncate">{experience.museum}</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Star className="w-4 h-4 shrink-0 text-warning" />
-                    <span>{exp.avgRating}/5 · {exp.totalVotes} votes</span>
+                    <span>{experience.avgRating}/5 - {experience.totalVotes} votes</span>
                   </div>
                 </div>
 
@@ -76,13 +84,18 @@ const Experiences = () => {
                     <span className="text-xs font-medium text-foreground">{collection.name}</span>
                   </div>
                 )}
+
+                <div className="flex justify-end">
+                  <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/experiences/${experience.id}`)}>
+                    <Eye className="w-4 h-4 mr-1.5" />View Details
+                  </Button>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* QR Modal */}
       {qrTarget && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
           <div className="bg-card rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl">
@@ -109,13 +122,13 @@ const Experiences = () => {
                   <Printer className="w-4 h-4 mr-1.5" />Print
                 </Button>
                 <Button className="flex-1" onClick={() => {
-                  const svg = document.querySelector('#qr-exp-area svg') as SVGElement;
+                  const svg = document.querySelector("#qr-exp-area svg") as SVGElement;
                   if (!svg) return;
-                  const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
-                  const a = document.createElement('a');
-                  a.href = URL.createObjectURL(blob);
-                  a.download = `qr-${qrTarget.id}.svg`;
-                  a.click();
+                  const blob = new Blob([svg.outerHTML], { type: "image/svg+xml" });
+                  const anchor = document.createElement("a");
+                  anchor.href = URL.createObjectURL(blob);
+                  anchor.download = `qr-${qrTarget.id}.svg`;
+                  anchor.click();
                 }}>
                   <Download className="w-4 h-4 mr-1.5" />Download
                 </Button>
@@ -127,4 +140,5 @@ const Experiences = () => {
     </div>
   );
 };
+
 export default Experiences;
