@@ -103,7 +103,7 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto w-full">
+    <div className="p-8 max-w-7xl mx-auto w-full">
       <Link to={backTo} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" />{requestedCollectionId ? "Back to Collections" : "Back to Artworks"}
       </Link>

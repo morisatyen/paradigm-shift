@@ -77,7 +77,7 @@ const ExperienceEditor = ({ mode }: ExperienceEditorProps) => {
   };
 
   return (
-    <div className="p-8 max-w-3xl mx-auto w-full">
+    <div className="p-8 max-w-7xl mx-auto w-full">
       <Link to={form.collectionId ? "/museum/collections-groups" : "/museum/collections-groups/experiences"} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" />{form.collectionId ? "Back to Collections" : "Back to Experiences"}
       </Link>

@@ -23,7 +23,7 @@ const CollectionDetail = () => {
   const qrUrl = `${window.location.origin}/visitor/login?type=artwork&id=${art.id}`;
 
   return (
-    <div className="p-8 max-w-5xl">
+    <div className="p-8 max-w-7xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
         <Link to="/museum/collections-groups/artworks" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" />Back to Artworks
