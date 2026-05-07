@@ -25,6 +25,9 @@ import CollectionsGroups from "./pages/museum/CollectionsGroups";
 import Experiences from "./pages/museum/Experiences";
 import ExperienceDetail from "./pages/museum/ExperienceDetail";
 import AddExperience from "./pages/museum/AddExperience";
+import ArtworkEditor from "./pages/museum/ArtworkEditor";
+import ExperienceEditor from "./pages/museum/ExperienceEditor";
+import CollectionGroupEditor from "./pages/museum/CollectionGroupEditor";
 import VisitorLogin from "./pages/visitor/VisitorLogin";
 import VisitorPoll from "./pages/visitor/VisitorPoll";
 import StakeholderLayout from "./components/layout/StakeholderLayout";
@@ -52,19 +55,25 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/museum" element={<MuseumLayout />}>
               <Route index element={<MuseumDashboard />} />
+              <Route path="collections-groups" element={<CollectionsGroups />} />
+              <Route path="collections-groups/add" element={<CollectionGroupEditor mode="add" />} />
+              <Route path="collections-groups/:id/edit" element={<CollectionGroupEditor mode="edit" />} />
+              <Route path="collections-groups/artworks" element={<Collection />} />
+              <Route path="collections-groups/artworks/add" element={<AddCollection />} />
+              <Route path="collections-groups/artworks/:id" element={<CollectionDetail />} />
+              <Route path="collections-groups/artworks/:id/edit" element={<ArtworkEditor mode="edit" />} />
+              <Route path="collections-groups/experiences" element={<Experiences />} />
+              <Route path="collections-groups/experiences/add" element={<AddExperience />} />
+              <Route path="collections-groups/experiences/:id" element={<ExperienceDetail />} />
+              <Route path="collections-groups/experiences/:id/edit" element={<ExperienceEditor mode="edit" />} />
+              <Route path="artworks" element={<Collection />} />
+              <Route path="artworks/add" element={<AddCollection />} />
+              <Route path="artworks/:id" element={<CollectionDetail />} />
+              <Route path="artworks/:id/edit" element={<ArtworkEditor mode="edit" />} />
               <Route path="collection" element={<Collection />} />
               <Route path="collection/add" element={<AddCollection />} />
               <Route path="collection/:id" element={<CollectionDetail />} />
-              <Route path="collection/:id/edit" element={
-                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
-                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center">
-                    <span className="text-3xl">🚧</span>
-                  </div>
-                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
-                  <p className="text-muted-foreground text-sm max-w-xs">The Edit Artwork feature is currently under development and will be available soon.</p>
-                  <a href="/museum/collection" className="text-sm text-secondary hover:underline">← Back to Collection</a>
-                </div>
-              } />
+              <Route path="collection/:id/edit" element={<ArtworkEditor mode="edit" />} />
               <Route path="reaccessioning" element={<Reaccessioning />} />
               <Route path="governance" element={<Governance />} />
               <Route path="blockchain" element={<Blockchain />} />
@@ -74,33 +83,10 @@ const App = () => (
               <Route path="community" element={<Community />} />
               <Route path="settings" element={<MuseumSettings />} />
               <Route path="voting" element={<VotingListings />} />
-              <Route path="collections-groups" element={<CollectionsGroups />} />
-              <Route path="collections-groups/add" element={
-                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
-                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center"><span className="text-3xl">🚧</span></div>
-                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
-                  <p className="text-muted-foreground text-sm max-w-xs">Add Collection Group feature is under development.</p>
-                  <a href="/museum/collections-groups" className="text-sm text-secondary hover:underline">← Back to Collections</a>
-                </div>
-              } />
-              <Route path="collections-groups/:id/edit" element={
-                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
-                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center"><span className="text-3xl">🚧</span></div>
-                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
-                  <p className="text-muted-foreground text-sm max-w-xs">Edit Collection feature is under development.</p>
-                  <a href="/museum/collections-groups" className="text-sm text-secondary hover:underline">← Back to Collections</a>
-                </div>
-              } />
+              <Route path="experiences" element={<Experiences />} />
               <Route path="experiences/:id" element={<ExperienceDetail />} />
               <Route path="experiences/add" element={<AddExperience />} />
-              <Route path="experiences/:id/edit" element={
-                <div className="flex flex-col items-center justify-center h-full gap-4 text-center p-8">
-                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center"><span className="text-3xl">🚧</span></div>
-                  <h2 className="text-2xl font-heading font-bold text-foreground">Coming Soon</h2>
-                  <p className="text-muted-foreground text-sm max-w-xs">Edit Experience feature is under development.</p>
-                  <a href="/museum/collections-groups" className="text-sm text-secondary hover:underline">← Back to Collections</a>
-                </div>
-              } />
+              <Route path="experiences/:id/edit" element={<ExperienceEditor mode="edit" />} />
             </Route>
             <Route path="/stakeholder" element={<StakeholderLayout />}>
               <Route index element={<Portfolio />} />

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LayoutDashboard, Image, GitBranch, Users, Shield, BarChart3, Landmark, Heart, Settings, Vote, LogOut, Menu, X, MessageSquare, Layers } from "lucide-react";
+import { LayoutDashboard, GitBranch, Users, Shield, BarChart3, Landmark, Heart, Settings, Vote, LogOut, Menu, X, MessageSquare, Layers } from "lucide-react";
 
 const NAV = [
   { to: "/museum", icon: LayoutDashboard, label: "Dashboard" },
-  // { to: "/museum/collection", icon: Image, label: "Artworks" },
   { to: "/museum/collections-groups", icon: Layers, label: "Collections" },
   { to: "/museum/reaccessioning", icon: GitBranch, label: "Reaccessioning" },
   { to: "/museum/governance", icon: Vote, label: "Governance" },
@@ -36,7 +35,9 @@ const MuseumLayout = () => {
       </div>
       <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto scrollbar-hide">
         {NAV.map(n => {
-          const active = pathname === n.to || (n.to !== "/museum" && pathname.startsWith(n.to));
+          const active = n.to === "/museum/collections-groups"
+            ? pathname.startsWith("/museum/collections-groups") || pathname.startsWith("/museum/artworks") || pathname.startsWith("/museum/experiences")
+            : pathname === n.to || (n.to !== "/museum" && pathname.startsWith(n.to));
           return (
             <Link key={n.to} to={n.to} onClick={() => setSidebarOpen(false)} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"}`}>
               <n.icon className="w-4 h-4" />{n.label}

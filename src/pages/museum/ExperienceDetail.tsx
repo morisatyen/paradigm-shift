@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { EXPERIENCES, COLLECTIONS } from "@/data/mockData";
+import { EXPERIENCES, COLLECTIONS, ARTWORKS } from "@/data/mockData";
 import { ArrowLeft, Calendar, Users, Star, MapPin, QrCode, X, Download, Printer, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
@@ -18,18 +18,19 @@ const ExperienceDetail = () => {
   const [showQR, setShowQR] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const exp = EXPERIENCES.find(e => e.id === id) || EXPERIENCES[0];
-  const collection = COLLECTIONS.find(c => c.id === exp.collectionId);
+  const exp = EXPERIENCES.find((experience) => experience.id === id) || EXPERIENCES[0];
+  const collection = COLLECTIONS.find((item) => item.id === exp.collectionId);
+  const artwork = ARTWORKS.find((item) => item.id === exp.artworkId);
   const qrUrl = `${window.location.origin}/visitor/login?type=experience&id=${exp.id}`;
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-8 max-w-7xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
-        <Link to="/museum/collections-groups" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="w-4 h-4" />Back to Collections
+        <Link to="/museum/collections-groups/experiences" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="w-4 h-4" />Back to Experiences
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={() => navigate(`/museum/experiences/${exp.id}/edit`)}>
+          <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/experiences/${exp.id}/edit`)}>
             <Pencil className="w-4 h-4 mr-1.5" />Edit
           </Button>
           <Button variant="outline" size="sm" className="text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => setShowDelete(true)}>
@@ -41,7 +42,6 @@ const ExperienceDetail = () => {
         </div>
       </div>
 
-      {/* Hero */}
       <div className="rounded-xl overflow-hidden mb-6 relative">
         <img src={exp.image} alt={exp.title} className="w-full h-56 object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -52,40 +52,52 @@ const ExperienceDetail = () => {
         </div>
       </div>
 
-      {/* Details */}
       <div className="glass-card rounded-xl p-6 mb-5">
         <p className="text-sm text-muted-foreground leading-relaxed mb-6">{exp.description}</p>
         <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
           {[
-            { label: "Date", value: exp.date, icon: Calendar },
-            { label: "Time", value: exp.time, icon: Calendar },
-            { label: "Capacity", value: `${exp.capacity} guests`, icon: Users },
-            { label: "Location", value: exp.museum, icon: MapPin },
-            { label: "Avg Rating", value: `${exp.avgRating} / 5`, icon: Star },
-            { label: "Total Votes", value: exp.totalVotes.toLocaleString(), icon: Users },
-          ].map(d => (
-            <div key={d.label} className="flex flex-col gap-0.5 border-b border-border pb-3">
-              <span className="text-xs text-muted-foreground">{d.label}</span>
-              <span className="text-sm font-medium text-foreground">{d.value}</span>
+            { label: "Date", value: exp.date },
+            { label: "Time", value: exp.time },
+            { label: "Capacity", value: `${exp.capacity} guests` },
+            { label: "Location", value: exp.museum },
+            { label: "Avg Rating", value: `${exp.avgRating} / 5` },
+            { label: "Total Votes", value: exp.totalVotes.toLocaleString() },
+          ].map((detail) => (
+            <div key={detail.label} className="flex flex-col gap-0.5 border-b border-border pb-3">
+              <span className="text-xs text-muted-foreground">{detail.label}</span>
+              <span className="text-sm font-medium text-foreground">{detail.value}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Linked Collection */}
-      {collection && (
-        <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-          <img src={collection.image} alt={collection.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-          <div className="flex-1 min-w-0">
-            <p className="text-xs text-muted-foreground mb-0.5">Part of collection</p>
-            <p className="text-sm font-semibold text-foreground">{collection.name}</p>
-            <p className="text-xs text-muted-foreground">{collection.museum}</p>
-          </div>
-          <Button variant="outline" size="sm" onClick={() => navigate("/museum/collections-groups")}>View</Button>
+      {(collection || artwork) && (
+        <div className="grid gap-4 md:grid-cols-2">
+          {collection && (
+            <div className="glass-card rounded-xl p-5 flex items-center gap-4">
+              <img src={collection.image} alt={collection.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-muted-foreground mb-0.5">Part of collection</p>
+                <p className="text-sm font-semibold text-foreground">{collection.name}</p>
+                <p className="text-xs text-muted-foreground">{collection.museum}</p>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => navigate("/museum/collections-groups")}>View</Button>
+            </div>
+          )}
+          {artwork && (
+            <div className="glass-card rounded-xl p-5 flex items-center gap-4">
+              <img src={artwork.image} alt={artwork.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-muted-foreground mb-0.5">Linked artwork</p>
+                <p className="text-sm font-semibold text-foreground">{artwork.title}</p>
+                <p className="text-xs text-muted-foreground">{artwork.artist}</p>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/artworks/${artwork.id}`)}>View</Button>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Delete Confirm */}
       {showDelete && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
           <div className="bg-card rounded-xl p-6 max-w-sm w-full mx-4 shadow-xl">
@@ -101,13 +113,12 @@ const ExperienceDetail = () => {
             <p className="text-sm text-muted-foreground mb-5">Are you sure you want to delete <span className="font-medium text-foreground">{exp.title}</span>?</p>
             <div className="flex gap-3">
               <Button variant="outline" className="flex-1" onClick={() => setShowDelete(false)}>Cancel</Button>
-              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => navigate("/museum/collections-groups")}>Delete</Button>
+              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => navigate("/museum/collections-groups/experiences")}>Delete</Button>
             </div>
           </div>
         </div>
       )}
 
-      {/* QR Modal */}
       {showQR && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
           <div className="bg-card rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl">
@@ -134,13 +145,13 @@ const ExperienceDetail = () => {
                   <Printer className="w-4 h-4 mr-1.5" />Print
                 </Button>
                 <Button className="flex-1" onClick={() => {
-                  const svg = document.querySelector('#qr-exp-detail svg') as SVGElement;
+                  const svg = document.querySelector("#qr-exp-detail svg") as SVGElement;
                   if (!svg) return;
-                  const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
-                  const a = document.createElement('a');
-                  a.href = URL.createObjectURL(blob);
-                  a.download = `qr-${exp.id}.svg`;
-                  a.click();
+                  const blob = new Blob([svg.outerHTML], { type: "image/svg+xml" });
+                  const anchor = document.createElement("a");
+                  anchor.href = URL.createObjectURL(blob);
+                  anchor.download = `qr-${exp.id}.svg`;
+                  anchor.click();
                 }}>
                   <Download className="w-4 h-4 mr-1.5" />Download
                 </Button>
@@ -152,4 +163,5 @@ const ExperienceDetail = () => {
     </div>
   );
 };
+
 export default ExperienceDetail;
