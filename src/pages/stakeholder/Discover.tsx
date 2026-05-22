@@ -13,7 +13,7 @@ const Discover = () => {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Discover</h1>
-      <p className="text-muted-foreground text-sm mb-8">Museum-grade artworks available for investment</p>
+      <p className="text-muted-foreground text-sm mt-1 mb-8">Museum-grade artworks available for investment</p>
 
       <div className="flex items-center gap-4 mb-8">
         <div className="relative flex-1 max-w-md"><Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><Input placeholder="Search artworks..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9" /></div>
@@ -47,3 +47,4 @@ const Discover = () => {
   );
 };
 export default Discover;
+

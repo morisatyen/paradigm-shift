@@ -23,7 +23,7 @@ const chartData = [
 const Portfolio = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Portfolio</h1>
-    <p className="text-muted-foreground text-sm mb-8">Your investment overview</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Your investment overview</p>
 
     <div className="grid md:grid-cols-4 gap-4 mb-8">
       {[{ label: "Portfolio Value", value: `$${(portfolioValue / 1e3).toFixed(1)}K`, icon: DollarSign }, { label: "Total Gain", value: `+$${(totalGain / 1e3).toFixed(1)}K`, icon: TrendingUp, green: true }, { label: "Holdings", value: holdings.length.toString(), icon: PieChart }, { label: "Next Dividend", value: "Jun 15", icon: Calendar }].map(k => (
@@ -63,3 +63,4 @@ const Portfolio = () => (
   </div>
 );
 export default Portfolio;
+

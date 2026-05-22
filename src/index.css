@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,46 +6,46 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 20% 10%;
+    --background: 220 14% 96%;
+    --foreground: 210 60% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card-foreground: 210 60% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
-    --primary: 215 58% 26%;
+    --popover-foreground: 210 60% 10%;
+    --primary: 205 100% 16%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 202 56% 56%;
+    --secondary: 211 54% 23%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 220 14% 92%;
-    --muted-foreground: 220 10% 46%;
-    --accent: 202 56% 56%;
+    --muted: 210 20% 92%;
+    --muted-foreground: 240 5% 45%;
+    --accent: 201 95% 50%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --destructive: 8 49% 53%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 13% 88%;
-    --input: 220 13% 88%;
-    --ring: 215 58% 26%;
-    --radius: 0.5rem;
+    --border: 220 16% 90%;
+    --input: 218 14% 84%;
+    --ring: 205 100% 16%;
+    --radius: 0.625rem;
 
-    --navy: 215 58% 26%;
-    --navy-deep: 220 30% 10%;
-    --blue: 202 56% 56%;
-    --blue-light: 202 56% 90%;
-    --silver: 0 0% 85%;
-    --silver-light: 0 0% 95%;
-    --charcoal: 0 0% 10%;
-    --gold: 43 74% 49%;
-    --success: 142 71% 45%;
-    --warning: 38 92% 50%;
+    --navy: 205 100% 16%;
+    --navy-deep: 211 54% 23%;
+    --blue: 201 95% 50%;
+    --blue-light: 207 35% 89%;
+    --silver: 220 6% 74%;
+    --silver-light: 220 9% 95%;
+    --charcoal: 210 60% 10%;
+    --gold: 39 36% 53%;
+    --success: 139 30% 42%;
+    --warning: 27 50% 54%;
 
-    --sidebar-background: 215 58% 26%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 202 56% 56%;
+    --sidebar-background: 205 100% 16%;
+    --sidebar-foreground: 40 25% 95%;
+    --sidebar-primary: 201 95% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 50% 32%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 215 40% 35%;
-    --sidebar-ring: 202 56% 56%;
+    --sidebar-accent: 211 54% 23%;
+    --sidebar-accent-foreground: 40 25% 95%;
+    --sidebar-border: 212 45% 30%;
+    --sidebar-ring: 201 95% 50%;
   }
 }
 
@@ -57,7 +57,9 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
   h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Archivo', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -70,19 +72,42 @@
     display: none;
   }
   .font-heading {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Archivo', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  }
+  .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   }
   .glass-card {
     @apply bg-card/80 backdrop-blur-lg border border-border/50 shadow-sm;
   }
   .gradient-navy {
-    background: linear-gradient(135deg, hsl(215 58% 26%), hsl(220 30% 10%));
+    background: linear-gradient(135deg, hsl(205 100% 16%), hsl(211 54% 23%));
   }
   .gradient-accent {
-    background: linear-gradient(135deg, hsl(202 56% 56%), hsl(215 58% 26%));
+    background: linear-gradient(135deg, hsl(201 95% 50%), hsl(205 100% 16%));
   }
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(202 56% 56%), hsl(215 58% 26%));
+    background-image: linear-gradient(135deg, hsl(201 95% 50%), hsl(205 100% 16%));
+  }
+}
+
+@layer components {
+  .app-page-content h1[class~="text-2xl"][class~="font-heading"],
+  .app-page-content h2[class~="text-2xl"][class~="font-heading"] {
+    font-size: clamp(2rem, 3.2vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    color: hsl(var(--foreground));
+  }
+
+  .app-page-content p[class~="text-muted-foreground"][class~="text-sm"][class~="mt-1"] {
+    margin-top: 0.5rem;
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-style: italic;
+    line-height: 1.2;
+    color: hsl(var(--muted-foreground));
   }
 }

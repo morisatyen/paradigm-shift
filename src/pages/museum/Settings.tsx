@@ -20,7 +20,7 @@ const logs = [
 const MuseumSettings = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Settings</h1>
-    <p className="text-muted-foreground text-sm mb-8">API integrations, roles & security</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">API integrations, roles & security</p>
 
     <div className="grid lg:grid-cols-2 gap-6 mb-8">
       <div className="glass-card rounded-xl p-6">
@@ -68,3 +68,4 @@ const MuseumSettings = () => (
   </div>
 );
 export default MuseumSettings;
+

@@ -105,7 +105,7 @@ const CollectionsGroups = () => {
                       <div key={artwork.id} className="flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
                         <img src={artwork.image} alt={artwork.title} className="w-12 h-12 rounded-lg object-cover shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-foreground truncate">{artwork.title}</div>
+                          <div className="text-sm font-serif italic font-normal text-foreground truncate">{artwork.title}</div>
                           <div className="text-xs text-muted-foreground">{artwork.artist}, {artwork.year}</div>
                           <div className="text-xs text-secondary font-medium">{artwork.tokenSymbol}</div>
                         </div>

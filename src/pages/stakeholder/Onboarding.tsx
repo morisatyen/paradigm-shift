@@ -18,7 +18,7 @@ const Onboarding = () => {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-heading font-bold text-foreground mb-2">KYC / AML Verification</h1>
-      <p className="text-muted-foreground text-sm mb-8">5-step onboarding process</p>
+      <p className="text-muted-foreground text-sm mt-1 mb-8">5-step onboarding process</p>
 
       <div className="flex gap-4 mb-8">
         {STEPS.map((s, i) => (
@@ -45,3 +45,4 @@ const Onboarding = () => {
   );
 };
 export default Onboarding;
+

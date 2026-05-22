@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 const GovernanceVoting = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Governance</h1>
-    <p className="text-muted-foreground text-sm mb-8">Vote on museum-proposed community projects</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Vote on museum-proposed community projects</p>
 
     <div className="space-y-6">
       {GOVERNANCE_PROPOSALS.map(p => {
@@ -38,3 +38,4 @@ const GovernanceVoting = () => (
   </div>
 );
 export default GovernanceVoting;
+

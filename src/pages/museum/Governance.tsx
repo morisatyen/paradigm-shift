@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 const Governance = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Governance</h1>
-    <p className="text-muted-foreground text-sm mb-8">Multi-signature voting panel</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Multi-signature voting panel</p>
 
     <div className="space-y-6">
       {GOVERNANCE_PROPOSALS.map(p => {
@@ -16,7 +16,7 @@ const Governance = () => (
             <div className="flex items-start justify-between mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-foreground">{p.title}</h3>
+                  <h3 className="text-2xl font-serif italic font-normal text-foreground">{p.title}</h3>
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${p.status === "active" ? "bg-secondary/10 text-secondary" : "bg-success/10 text-success"}`}>{p.status}</span>
                 </div>
                 <p className="text-sm text-muted-foreground">{p.description}</p>
@@ -44,3 +44,4 @@ const Governance = () => (
   </div>
 );
 export default Governance;
+

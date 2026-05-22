@@ -30,7 +30,7 @@ const IMPACT_STATS = [
 const ImpactMetrics = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Impact Metrics</h1>
-    <p className="text-muted-foreground text-sm mb-8">Cultural & community impact alongside your financial performance</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Cultural & community impact alongside your financial performance</p>
 
     <div className="grid md:grid-cols-4 gap-4 mb-8">
       {IMPACT_STATS.map(s => (
@@ -101,3 +101,4 @@ const ImpactMetrics = () => (
   </div>
 );
 export default ImpactMetrics;
+

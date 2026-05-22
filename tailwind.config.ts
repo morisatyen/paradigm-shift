@@ -12,8 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        heading: ["Playfair Display", "serif"],
+        sans: ["Archivo", "system-ui", "-apple-system", '"Helvetica Neue"', "sans-serif"],
+        heading: ["Archivo", "system-ui", "-apple-system", '"Helvetica Neue"', "sans-serif"],
+        serif: ["Cormorant Garamond", "Georgia", '"Times New Roman"', "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

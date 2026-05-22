@@ -23,6 +23,22 @@ const StakeholderLayout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const resolvePageLabel = () => {
+    const direct = NAV.find((item) => pathname === item.to);
+    if (direct) return direct.label;
+
+    const prefixed = NAV
+      .filter((item) => item.to !== "/stakeholder" && pathname.startsWith(item.to))
+      .sort((a, b) => b.to.length - a.to.length)[0];
+    if (prefixed) return prefixed.label;
+
+    if (pathname.includes("/asset/")) return "Asset Detail";
+
+    const last = pathname.split("/").filter(Boolean).pop() ?? "Portfolio";
+    return last
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
 
   const SidebarContent = () => (
     <>
@@ -34,7 +50,7 @@ const StakeholderLayout = () => {
         {NAV.map(n => {
           const active = pathname === n.to || (n.to !== "/stakeholder" && pathname.startsWith(n.to));
           return (
-            <Link key={n.to} to={n.to} onClick={() => setSidebarOpen(false)} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"}`}>
+            <Link key={n.to} to={n.to} onClick={() => setSidebarOpen(false)} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[17px] transition-colors ${active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"}`}>
               <n.icon className="w-4 h-4" />{n.label}
             </Link>
           );
@@ -71,7 +87,12 @@ const StakeholderLayout = () => {
           <button onClick={() => setSidebarOpen(true)} className="text-sidebar-foreground"><Menu className="w-5 h-5" /></button>
           <Link to="/">{SVG_LOGO}</Link>
         </div>
-        <main className="flex-1 overflow-y-auto bg-background">
+        <div className="hidden md:flex h-[84px] items-center justify-between px-10 border-b border-border bg-background shrink-0">
+          <div className="text-sm font-heading font-bold tracking-[0.16em] uppercase text-muted-foreground">
+            Workspace <span className="mx-2">/</span> <span className="text-foreground">{resolvePageLabel()}</span>
+          </div>
+        </div>
+        <main className="app-page-content flex-1 overflow-y-auto bg-background">
           <Outlet />
         </main>
       </div>

@@ -20,22 +20,22 @@ const GaugeChart = ({ score }: { score: number }) => {
 const Compliance = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Compliance</h1>
-    <p className="text-muted-foreground text-sm mb-8">Regulatory compliance overview</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Regulatory compliance overview</p>
 
     <div className="grid lg:grid-cols-3 gap-6 mb-8">
       <div className="glass-card rounded-xl p-6 text-center">
-        <h3 className="text-sm font-medium text-muted-foreground mb-4">Overall Compliance Score</h3>
+        <h3 className="text-2xl font-serif italic font-normal text-foreground mb-4">Overall Compliance Score</h3>
         <GaugeChart score={98} />
       </div>
       <div className="glass-card rounded-xl p-6">
-        <h3 className="text-sm font-medium text-muted-foreground mb-4">Status Summary</h3>
+        <h3 className="text-2xl font-serif italic font-normal text-foreground mb-4">Status Summary</h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between"><span className="text-sm text-foreground flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" />Compliant</span><span className="font-semibold text-foreground">5</span></div>
           <div className="flex items-center justify-between"><span className="text-sm text-foreground flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-warning" />Under Review</span><span className="font-semibold text-foreground">1</span></div>
         </div>
       </div>
       <div className="glass-card rounded-xl p-6">
-        <h3 className="text-sm font-medium text-muted-foreground mb-4">Jurisdiction Simulator</h3>
+        <h3 className="text-2xl font-serif italic font-normal text-foreground mb-4">Jurisdiction Simulator</h3>
         <select className="w-full p-2 rounded-lg border border-border bg-background text-foreground text-sm mb-3">
           <option>United States</option><option>European Union</option><option>Switzerland</option><option>United Kingdom</option><option>Singapore</option>
         </select>
@@ -46,12 +46,12 @@ const Compliance = () => (
     <div className="glass-card rounded-xl overflow-hidden">
       <table className="w-full">
         <thead><tr className="border-b border-border">
-          {["Regulation", "Jurisdiction", "Score", "Last Audit", "Status"].map(h => <th key={h} className="p-4 text-left text-xs font-medium text-muted-foreground">{h}</th>)}
+          {["Regulation", "Jurisdiction", "Score", "Last Audit", "Status"].map(h => <th key={h} className="p-4 text-left text-sm font-bold tracking-wide text-foreground">{h}</th>)}
         </tr></thead>
         <tbody>
           {COMPLIANCE_ITEMS.map(c => (
             <tr key={c.id} className="border-b border-border last:border-0 hover:bg-muted/50">
-              <td className="p-4 text-sm font-medium text-foreground flex items-center gap-2"><Shield className="w-4 h-4 text-secondary" />{c.regulation}</td>
+              <td className="p-4 text-xl font-serif italic font-normal text-foreground flex items-center gap-2"><Shield className="w-4 h-4 text-secondary" />{c.regulation}</td>
               <td className="p-4 text-sm text-muted-foreground">{c.jurisdiction}</td>
               <td className="p-4 text-sm font-semibold text-foreground">{c.score}/100</td>
               <td className="p-4 text-sm text-muted-foreground">{c.lastAudit}</td>
@@ -64,3 +64,4 @@ const Compliance = () => (
   </div>
 );
 export default Compliance;
+

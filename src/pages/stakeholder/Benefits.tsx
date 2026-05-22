@@ -6,7 +6,7 @@ const icons: Record<string, typeof Crown> = { Patron: Crown, Collector: Star, Go
 const Benefits = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Benefits</h1>
-    <p className="text-muted-foreground text-sm mb-8">Tiered access levels based on your investment</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Tiered access levels based on your investment</p>
 
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       {BENEFITS_TIERS.map(t => {
@@ -30,3 +30,4 @@ const Benefits = () => (
   </div>
 );
 export default Benefits;
+

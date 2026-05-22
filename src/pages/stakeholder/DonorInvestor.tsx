@@ -37,7 +37,7 @@ const DonorInvestor = () => {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Donor–Investor Tools</h1>
-      <p className="text-muted-foreground text-sm mb-8">Combine philanthropic giving with fractional investment — your choice</p>
+      <p className="text-muted-foreground text-sm mt-1 mb-8">Combine philanthropic giving with fractional investment — your choice</p>
 
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
         {[
@@ -152,3 +152,4 @@ const DonorInvestor = () => {
   );
 };
 export default DonorInvestor;
+
