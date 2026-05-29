@@ -51,7 +51,7 @@ const Index = () => (
             <Shield className="w-4 h-4" /> SEC-Compliant Fractional Art Ownership
           </div> */}
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground leading-tight mb-6">
-            Unlocking a <span className="text-secondary">$4.2 Billion</span> Market Opportunity in Museum Art
+            Unlocking a <span className="text-secondary text-white">$4.2 Billion</span> Market Opportunity in Museum Art
           </h1>
           <p className="text-primary-foreground/70 text-lg mb-10 max-w-2xl mx-auto">
             The institutional-grade platform connecting museums with global investors through blockchain-secured fractional ownership of culturally significant artworks.
