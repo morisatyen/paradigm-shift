@@ -16,8 +16,8 @@ const SearchHeader = () => {
     <div className="hidden md:block h-[84px] w-full border-b border-border bg-[#F4F6F8]">
       <div className="grid h-full grid-cols-[minmax(0,1fr)_minmax(0,620px)_auto] items-center gap-4 px-8 xl:px-10">
         <div className="min-w-0">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 overflow-hidden font-['Archivo',sans-serif] text-[18px] text-slate-500">
-            <Link to="/" className="shrink-0 font-medium text-slate-600 hover:text-slate-800">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 overflow-hidden font-['Archivo',sans-serif] text-[11px] font-bold tracking-[0.14em] text-slate-500">
+            <Link to="/" className="shrink-0 text-slate-600 hover:text-slate-800">
               Home
             </Link>
             {crumbs.map((crumb, index) => {
@@ -26,7 +26,7 @@ const SearchHeader = () => {
                 <div key={crumb.href} className="flex min-w-0 items-center gap-2">
                   <span className="shrink-0 text-slate-300">/</span>
                   {isLast ? (
-                    <span className="truncate font-semibold text-slate-800">{crumb.label}</span>
+                    <span className="truncate text-slate-800">{crumb.label}</span>
                   ) : (
                     <Link to={crumb.href} className="truncate hover:text-slate-700">
                       {crumb.label}
