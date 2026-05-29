@@ -2,8 +2,8 @@ import { Heart, Users, Target, Zap } from "lucide-react";
 
 const Community = () => (
   <div className="p-8">
-    <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Community — Cultural Infusion</h1>
-    <p className="text-muted-foreground text-sm mt-1 mb-8">Powered by Cultural Infusion</p>
+    <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Community</h1>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Mission alignment, civic engagement, and active initiatives</p>
 
     <div className="grid md:grid-cols-2 gap-6 mb-8">
       <div className="glass-card rounded-xl p-6 text-center">

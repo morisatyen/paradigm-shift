@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ARTWORKS, COLLECTIONS, EXPERIENCES } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
@@ -70,12 +70,12 @@ const CollectionGroupEditor = ({ mode }: CollectionGroupEditorProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!validate()) return;
-    navigate("/museum/collections-groups");
+    navigate("/Workspace/collections");
   };
 
   return (
     <div className="p-8 max-w-7xl mx-auto w-full">
-      <Link to="/museum/collections-groups" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
+      <Link to="/Workspace/collections" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" />Back to Collections
       </Link>
 
@@ -148,7 +148,7 @@ const CollectionGroupEditor = ({ mode }: CollectionGroupEditorProps) => {
         </div>
 
         <div className="flex items-center justify-end gap-3">
-          <Button type="button" variant="outline" onClick={() => navigate("/museum/collections-groups")}>Cancel</Button>
+          <Button type="button" variant="outline" onClick={() => navigate("/Workspace/collections")}>Cancel</Button>
           <Button type="submit">{mode === "edit" ? "Save Collection" : "Add Collection"}</Button>
         </div>
       </form>
@@ -157,3 +157,4 @@ const CollectionGroupEditor = ({ mode }: CollectionGroupEditorProps) => {
 };
 
 export default CollectionGroupEditor;
+

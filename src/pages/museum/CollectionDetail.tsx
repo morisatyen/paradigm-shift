@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ARTWORKS, COLLECTIONS, EXPERIENCES } from "@/data/mockData";
 import { ArrowLeft, Shield, History, Coins, BarChart3, Info, Pencil, Trash2, QrCode, X, Download, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { QRCodeSVG } from "qrcode.react";
-
-const TABS = ["Overview", "Financials", "Token Info", "Provenance"];
+const BASE_TABS = ["Overview", "Provenance"];
+const FINANCIAL_TABS = ["Financials", "Token Info"];
 
 const CollectionDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tab, setTab] = useState(0);
+  const [showFinancialDetails, setShowFinancialDetails] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const art = ARTWORKS.find((artwork) => artwork.id === id) || ARTWORKS[0];
@@ -21,15 +23,22 @@ const CollectionDetail = () => {
       linkedCollections.some((collection) => collection.id === experience.collectionId)
   );
   const qrUrl = `${window.location.origin}/visitor/login?type=artwork&id=${art.id}`;
+  const tabs = showFinancialDetails
+    ? ["Overview", ...FINANCIAL_TABS, "Provenance"]
+    : BASE_TABS;
+
+  useEffect(() => {
+    if (!showFinancialDetails && tab > 1) setTab(1);
+  }, [showFinancialDetails, tab]);
 
   return (
     <div className="p-8 max-w-7xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
-        <Link to="/museum/collections-groups/artworks" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link to="/Workspace/collections/artworks" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" />Back to Artworks
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/artworks/${art.id}/edit`)}>
+          <Button variant="outline" size="sm" onClick={() => navigate(`/Workspace/collections/artworks/${art.id}/edit`)}>
             <Pencil className="w-4 h-4 mr-1.5" />Edit
           </Button>
           <Button variant="outline" size="sm" onClick={() => setShowQR(true)}>
@@ -100,7 +109,7 @@ const CollectionDetail = () => {
             <p className="text-sm text-muted-foreground mb-5">Are you sure you want to remove <span className="font-medium text-foreground">{art.title}</span> from the artwork library?</p>
             <div className="flex gap-3">
               <Button variant="outline" className="flex-1" onClick={() => setShowDeleteConfirm(false)}>Cancel</Button>
-              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => navigate("/museum/collections-groups/artworks")}>Delete</Button>
+              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => navigate("/Workspace/collections/artworks")}>Delete</Button>
             </div>
           </div>
         </div>
@@ -161,7 +170,7 @@ const CollectionDetail = () => {
           ) : (
             <div className="space-y-3">
               {linkedExperiences.slice(0, 3).map((experience) => (
-                <button key={experience.id} type="button" onClick={() => navigate(`/museum/collections-groups/experiences/${experience.id}`)} className="w-full flex items-center gap-3 rounded-lg p-2 -m-2 text-left transition-colors hover:bg-muted/40">
+                <button key={experience.id} type="button" onClick={() => navigate(`/Workspace/collections/experiences/${experience.id}`)} className="w-full flex items-center gap-3 rounded-lg p-2 -m-2 text-left transition-colors hover:bg-muted/40">
                   <img src={experience.image} alt={experience.title} className="w-12 h-12 rounded-lg object-cover" />
                   <div>
                     <p className="text-sm font-medium text-foreground">{experience.title}</p>
@@ -175,7 +184,7 @@ const CollectionDetail = () => {
       </div>
 
       <div className="flex gap-1 mb-6 border-b border-border">
-        {TABS.map((tabName, index) => (
+        {tabs.map((tabName, index) => (
           <button key={tabName} onClick={() => setTab(index)} className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${index === tab ? "border-secondary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
             {tabName}
           </button>
@@ -204,6 +213,23 @@ const CollectionDetail = () => {
                 </div>
               ))}
             </div>
+            <div className="pt-1">
+              <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/30 p-4">
+                <Checkbox
+                  id="showFinancialDetails"
+                  checked={showFinancialDetails}
+                  onCheckedChange={(checked) => setShowFinancialDetails(Boolean(checked))}
+                />
+                <div className="space-y-1">
+                  <label htmlFor="showFinancialDetails" className="text-sm font-medium text-foreground cursor-pointer">
+                    Financial Details
+                  </label>
+                  <p className="text-xs text-muted-foreground">
+                    Show or hide the Financials and Token Info tabs for this artwork view.
+                  </p>
+                </div>
+              </div>
+            </div>
 
             <div>
               <span className="text-xs text-muted-foreground">Ownership Distribution</span>
@@ -219,7 +245,7 @@ const CollectionDetail = () => {
           </div>
         )}
 
-        {tab === 1 && (
+        {showFinancialDetails && tab === 1 && (
           <div className="space-y-6">
             <div className="flex items-center gap-2 mb-2">
               <BarChart3 className="w-4 h-4 text-secondary" />
@@ -246,7 +272,7 @@ const CollectionDetail = () => {
           </div>
         )}
 
-        {tab === 2 && (
+        {showFinancialDetails && tab === 2 && (
           <div className="space-y-6">
             <div className="flex items-center gap-2 mb-2">
               <Coins className="w-4 h-4 text-secondary" />
@@ -276,7 +302,7 @@ const CollectionDetail = () => {
           </div>
         )}
 
-        {tab === 3 && (
+        {((showFinancialDetails && tab === 3) || (!showFinancialDetails && tab === 1)) && (
           <div className="space-y-5">
             <div className="flex items-center gap-2 mb-2">
               <History className="w-4 h-4 text-secondary" />

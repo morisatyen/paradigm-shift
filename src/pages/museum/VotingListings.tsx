@@ -33,7 +33,7 @@ const VotingListings = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-heading font-bold text-foreground">Visitor Votes</h1>
-          <p className="text-muted-foreground text-sm mt-1">Real-time feedback on collections and experiences</p>
+          <p className="text-muted-foreground text-sm mt-1">Real-time sentiment on collections and experiences from museum visitors</p>
         </div>
       </div>
 

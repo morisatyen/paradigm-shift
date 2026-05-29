@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle2, Circle, ArrowRight, ArrowLeft } from "lucide-react";
+import { CheckCircle2, ArrowRight, ArrowLeft } from "lucide-react";
 
 const STEPS = [
   { title: "Selection", desc: "Choose artwork for reaccessioning" },
@@ -20,6 +20,7 @@ const KEY = "ps_reaccession_state";
 const Reaccessioning = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<Record<string, string>>({});
+  const completion = Math.round((step / (STEPS.length - 1)) * 100);
 
   useEffect(() => {
     const s = localStorage.getItem(KEY);
@@ -47,16 +48,62 @@ const Reaccessioning = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Reaccessioning Workflow</h1>
-      <p className="text-muted-foreground text-sm mt-1 mb-8">7-step process for artwork tokenization</p>
+      <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Reaccessioning</h1>
+      <p className="text-muted-foreground text-sm mt-1 mb-8">A seven-step process to formally tokenize an artwork — from selection through compliance review and public launch.</p>
 
-      <div className="flex gap-2 mb-8 overflow-x-auto">
-        {STEPS.map((s, i) => (
-          <button key={i} onClick={() => setStep(i)} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm whitespace-nowrap transition-colors ${i === step ? "bg-primary text-primary-foreground" : i < step ? "bg-success/10 text-success" : "bg-muted text-muted-foreground"}`}>
-            {i < step ? <CheckCircle2 className="w-4 h-4" /> : <Circle className="w-4 h-4" />}
-            {s.title}
-          </button>
-        ))}
+      <div className="mb-8 rounded-2xl border border-border bg-card/70 p-5 shadow-sm">
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <div>
+            <p className="text-sm font-medium text-foreground">Workflow Progress</p>
+            <p className="text-xs text-muted-foreground">Step {step + 1} of {STEPS.length}</p>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-heading font-bold text-foreground">{completion}%</div>
+            <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Complete</div>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="absolute left-6 right-6 top-6 h-0.5 bg-border">
+            <div
+              className="h-full bg-primary origin-left transition-transform duration-300"
+              style={{ transform: `scaleX(${completion / 100})` }}
+            />
+          </div>
+          <div className="relative flex items-start justify-between gap-3 overflow-x-auto pb-1">
+            {STEPS.map((s, i) => {
+              const isCompleted = i < step;
+              const isCurrent = i === step;
+              return (
+                <button
+                  key={s.title}
+                  onClick={() => setStep(i)}
+                  className="group flex min-w-[120px] flex-1 flex-col items-center text-center"
+                >
+                  <div
+                    className={`z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 text-sm font-semibold transition-all duration-300 ${
+                      isCompleted
+                        ? "border-success bg-success text-white"
+                        : isCurrent
+                          ? "border-primary bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                          : "border-border bg-card text-muted-foreground"
+                    }`}
+                  >
+                    {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : i + 1}
+                  </div>
+                  <div className="mt-3">
+                    <div className={`text-sm font-medium transition-colors ${isCurrent ? "text-foreground" : isCompleted ? "text-foreground" : "text-muted-foreground"}`}>
+                      {s.title}
+                    </div>
+                    <div className="mt-1 text-[11px] leading-4 text-muted-foreground">
+                      {s.desc}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="glass-card rounded-xl p-8 max-w-2xl">

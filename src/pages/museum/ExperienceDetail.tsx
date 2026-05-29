@@ -26,11 +26,11 @@ const ExperienceDetail = () => {
   return (
     <div className="p-8 max-w-7xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
-        <Link to="/museum/collections-groups/experiences" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link to="/Workspace/collections/experiences" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" />Back to Experiences
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/experiences/${exp.id}/edit`)}>
+          <Button variant="outline" size="sm" onClick={() => navigate(`/Workspace/collections/experiences/${exp.id}/edit`)}>
             <Pencil className="w-4 h-4 mr-1.5" />Edit
           </Button>
           <Button variant="outline" size="sm" className="text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => setShowDelete(true)}>
@@ -81,7 +81,7 @@ const ExperienceDetail = () => {
                 <p className="text-sm font-semibold text-foreground">{collection.name}</p>
                 <p className="text-xs text-muted-foreground">{collection.museum}</p>
               </div>
-              <Button variant="outline" size="sm" onClick={() => navigate("/museum/collections-groups")}>View</Button>
+              <Button variant="outline" size="sm" onClick={() => navigate("/Workspace/collections")}>View</Button>
             </div>
           )}
           {artwork && (
@@ -92,7 +92,7 @@ const ExperienceDetail = () => {
                 <p className="text-sm font-semibold text-foreground">{artwork.title}</p>
                 <p className="text-xs text-muted-foreground">{artwork.artist}</p>
               </div>
-              <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/artworks/${artwork.id}`)}>View</Button>
+              <Button variant="outline" size="sm" onClick={() => navigate(`/Workspace/collections/artworks/${artwork.id}`)}>View</Button>
             </div>
           )}
         </div>
@@ -113,7 +113,7 @@ const ExperienceDetail = () => {
             <p className="text-sm text-muted-foreground mb-5">Are you sure you want to delete <span className="font-medium text-foreground">{exp.title}</span>?</p>
             <div className="flex gap-3">
               <Button variant="outline" className="flex-1" onClick={() => setShowDelete(false)}>Cancel</Button>
-              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => navigate("/museum/collections-groups/experiences")}>Delete</Button>
+              <Button className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground" onClick={() => navigate("/Workspace/collections/experiences")}>Delete</Button>
             </div>
           </div>
         </div>

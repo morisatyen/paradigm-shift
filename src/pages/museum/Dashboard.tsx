@@ -19,7 +19,7 @@ const MuseumDashboard = () => (
       </div>
       <div className="hidden lg:block text-right">
         <p className="text-[11px] tracking-[0.18em] font-bold uppercase text-muted-foreground">Reporting Period</p>
-        <p className="mt-1 text-3xl font-bold text-foreground">Jan - Dec 2026</p>
+        <p className="mt-1 text-1xl font-bold text-foreground">Jan - Dec 2026</p>
       </div>
     </div>
 

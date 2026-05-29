@@ -1,9 +1,10 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ARTWORKS, COLLECTIONS } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft } from "lucide-react";
 import FormField from "@/components/museum/FormField";
 
@@ -43,7 +44,8 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
   const artwork = ARTWORKS.find((item) => item.id === id);
   const linkedCollection = artwork ? COLLECTIONS.find((collection) => collection.artworks.includes(artwork.id)) : null;
   const requestedCollectionId = searchParams.get("collectionId") ?? linkedCollection?.id ?? "";
-  const backTo = requestedCollectionId ? "/museum/collections-groups" : "/museum/collections-groups/artworks";
+  const backTo = requestedCollectionId ? "/Workspace/collections" : "/Workspace/collections/artworks";
+  const [showFinancialDetails, setShowFinancialDetails] = useState(mode === "edit");
   const [form, setForm] = useState(() => {
     if (mode === "edit" && artwork) {
       return {
@@ -82,15 +84,17 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
     if (!form.title.trim()) nextErrors.title = "Required";
     if (!form.artist.trim()) nextErrors.artist = "Required";
     if (!form.year) nextErrors.year = "Required";
-    if (!form.estimatedValue) nextErrors.estimatedValue = "Required";
-    if (!form.museumOwnership) nextErrors.museumOwnership = "Required";
-    if (!form.tokenSymbol.trim()) nextErrors.tokenSymbol = "Required";
-    if (!form.totalTokens) nextErrors.totalTokens = "Required";
-    if (!form.pricePerToken) nextErrors.pricePerToken = "Required";
+    if (showFinancialDetails) {
+      if (!form.estimatedValue) nextErrors.estimatedValue = "Required";
+      if (!form.museumOwnership) nextErrors.museumOwnership = "Required";
+      if (!form.tokenSymbol.trim()) nextErrors.tokenSymbol = "Required";
+      if (!form.totalTokens) nextErrors.totalTokens = "Required";
+      if (!form.pricePerToken) nextErrors.pricePerToken = "Required";
 
-    const museumOwnership = Number(form.museumOwnership);
-    const investorOwnership = Number(form.investorOwnership);
-    if (museumOwnership + investorOwnership !== 100) nextErrors.investorOwnership = "Museum + Investor must equal 100%";
+      const museumOwnership = Number(form.museumOwnership);
+      const investorOwnership = Number(form.investorOwnership);
+      if (museumOwnership + investorOwnership !== 100) nextErrors.investorOwnership = "Museum + Investor must equal 100%";
+    }
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -99,7 +103,7 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!validate()) return;
-    navigate(mode === "edit" && artwork ? `/museum/collections-groups/artworks/${artwork.id}` : backTo);
+    navigate(mode === "edit" && artwork ? `/Workspace/collections/artworks/${artwork.id}` : backTo);
   };
 
   return (
@@ -159,60 +163,79 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
           <FormField label="Provenance" id="provenance">
             <Textarea id="provenance" value={form.provenance} onChange={(event) => set("provenance", event.target.value)} placeholder="e.g. Private Collection (1917-1952) -> Galerie Durand-Ruel -> MMA Acquisition (1952)" rows={2} />
           </FormField>
-        </div>
-
-        <div className="glass-card rounded-xl p-6 space-y-5">
-          <h2 className="font-semibold text-foreground border-b border-border pb-3">Valuation & Ownership</h2>
-          <div className="grid md:grid-cols-2 gap-5">
-            <FormField label="Estimated Value ($)" id="estimatedValue" required error={errors.estimatedValue}>
-              <Input id="estimatedValue" type="number" value={form.estimatedValue} onChange={(event) => set("estimatedValue", event.target.value)} placeholder="e.g. 42500000" />
-            </FormField>
-            <FormField label="Dividend Yield (%)" id="dividendYield">
-              <Input id="dividendYield" type="number" value={form.dividendYield} onChange={(event) => set("dividendYield", event.target.value)} placeholder="e.g. 4.2" step="0.1" min={0} max={100} />
-            </FormField>
-            <FormField label="Museum Ownership (%)" id="museumOwnership" required error={errors.museumOwnership}>
-              <Input
-                id="museumOwnership"
-                type="number"
-                value={form.museumOwnership}
-                onChange={(event) => {
-                  set("museumOwnership", event.target.value);
-                  set("investorOwnership", String(100 - Number(event.target.value)));
-                }}
-                placeholder="e.g. 60"
-                min={0}
-                max={100}
-              />
-            </FormField>
-            <FormField label="Investor Ownership (%)" id="investorOwnership" error={errors.investorOwnership}>
-              <Input id="investorOwnership" type="number" value={form.investorOwnership} onChange={(event) => set("investorOwnership", event.target.value)} placeholder="Auto-calculated" min={0} max={100} />
-              <p className="text-xs text-muted-foreground mt-1">Museum + Investor must equal 100%</p>
-            </FormField>
-          </div>
-        </div>
-
-        <div className="glass-card rounded-xl p-6 space-y-5">
-          <h2 className="font-semibold text-foreground border-b border-border pb-3">Token Configuration</h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            <FormField label="Token Symbol" id="tokenSymbol" required error={errors.tokenSymbol}>
-              <Input id="tokenSymbol" value={form.tokenSymbol} onChange={(event) => set("tokenSymbol", event.target.value.toUpperCase())} placeholder="e.g. MONET-WL3" />
-            </FormField>
-            <FormField label="Total Tokens" id="totalTokens" required error={errors.totalTokens}>
-              <Input id="totalTokens" type="number" value={form.totalTokens} onChange={(event) => set("totalTokens", event.target.value)} placeholder="e.g. 10000" />
-            </FormField>
-            <FormField label="Price Per Token ($)" id="pricePerToken" required error={errors.pricePerToken}>
-              <Input id="pricePerToken" type="number" value={form.pricePerToken} onChange={(event) => set("pricePerToken", event.target.value)} placeholder="e.g. 4820" />
-            </FormField>
-          </div>
-
-          {form.totalTokens && form.pricePerToken && (
-            <div className="p-4 rounded-lg bg-muted flex gap-8 text-sm">
-              <div><span className="text-muted-foreground">Total Token Value: </span><span className="font-semibold text-foreground">${(Number(form.totalTokens) * Number(form.pricePerToken)).toLocaleString()}</span></div>
-              {form.museumOwnership && <div><span className="text-muted-foreground">Museum Tokens: </span><span className="font-semibold text-foreground">{Math.floor(Number(form.totalTokens) * Number(form.museumOwnership) / 100).toLocaleString()}</span></div>}
-              {form.investorOwnership && <div><span className="text-muted-foreground">Investor Tokens: </span><span className="font-semibold text-foreground">{Math.floor(Number(form.totalTokens) * Number(form.investorOwnership) / 100).toLocaleString()}</span></div>}
+          <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/30 p-4">
+            <Checkbox
+              id="includeFinancialDetails"
+              checked={showFinancialDetails}
+              onCheckedChange={(checked) => setShowFinancialDetails(Boolean(checked))}
+            />
+            <div className="space-y-1">
+              <label htmlFor="includeFinancialDetails" className="text-sm font-medium text-foreground cursor-pointer">
+                Include Financial Details
+              </label>
+              <p className="text-xs text-muted-foreground">
+                Enable valuation, ownership, and token configuration fields for this artwork.
+              </p>
             </div>
-          )}
+          </div>
         </div>
+
+        {showFinancialDetails && (
+          <>
+            <div className="glass-card rounded-xl p-6 space-y-5">
+              <h2 className="font-semibold text-foreground border-b border-border pb-3">Financial Valuation & Ownership</h2>
+              <div className="grid md:grid-cols-2 gap-5">
+                <FormField label="Estimated Value ($)" id="estimatedValue" required error={errors.estimatedValue}>
+                  <Input id="estimatedValue" type="number" value={form.estimatedValue} onChange={(event) => set("estimatedValue", event.target.value)} placeholder="e.g. 42500000" />
+                </FormField>
+                <FormField label="Dividend Yield (%)" id="dividendYield">
+                  <Input id="dividendYield" type="number" value={form.dividendYield} onChange={(event) => set("dividendYield", event.target.value)} placeholder="e.g. 4.2" step="0.1" min={0} max={100} />
+                </FormField>
+                <FormField label="Museum Ownership (%)" id="museumOwnership" required error={errors.museumOwnership}>
+                  <Input
+                    id="museumOwnership"
+                    type="number"
+                    value={form.museumOwnership}
+                    onChange={(event) => {
+                      set("museumOwnership", event.target.value);
+                      set("investorOwnership", String(100 - Number(event.target.value)));
+                    }}
+                    placeholder="e.g. 60"
+                    min={0}
+                    max={100}
+                  />
+                </FormField>
+                <FormField label="Investor Ownership (%)" id="investorOwnership" error={errors.investorOwnership}>
+                  <Input id="investorOwnership" type="number" value={form.investorOwnership} onChange={(event) => set("investorOwnership", event.target.value)} placeholder="Auto-calculated" min={0} max={100} />
+                  <p className="text-xs text-muted-foreground mt-1">Museum + Investor must equal 100%</p>
+                </FormField>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-xl p-6 space-y-5">
+              <h2 className="font-semibold text-foreground border-b border-border pb-3">Financial Token Configuration</h2>
+              <div className="grid md:grid-cols-3 gap-5">
+                <FormField label="Token Symbol" id="tokenSymbol" required error={errors.tokenSymbol}>
+                  <Input id="tokenSymbol" value={form.tokenSymbol} onChange={(event) => set("tokenSymbol", event.target.value.toUpperCase())} placeholder="e.g. MONET-WL3" />
+                </FormField>
+                <FormField label="Total Tokens" id="totalTokens" required error={errors.totalTokens}>
+                  <Input id="totalTokens" type="number" value={form.totalTokens} onChange={(event) => set("totalTokens", event.target.value)} placeholder="e.g. 10000" />
+                </FormField>
+                <FormField label="Price Per Token ($)" id="pricePerToken" required error={errors.pricePerToken}>
+                  <Input id="pricePerToken" type="number" value={form.pricePerToken} onChange={(event) => set("pricePerToken", event.target.value)} placeholder="e.g. 4820" />
+                </FormField>
+              </div>
+
+              {form.totalTokens && form.pricePerToken && (
+                <div className="p-4 rounded-lg bg-muted flex gap-8 text-sm">
+                  <div><span className="text-muted-foreground">Total Token Value: </span><span className="font-semibold text-foreground">${(Number(form.totalTokens) * Number(form.pricePerToken)).toLocaleString()}</span></div>
+                  {form.museumOwnership && <div><span className="text-muted-foreground">Museum Tokens: </span><span className="font-semibold text-foreground">{Math.floor(Number(form.totalTokens) * Number(form.museumOwnership) / 100).toLocaleString()}</span></div>}
+                  {form.investorOwnership && <div><span className="text-muted-foreground">Investor Tokens: </span><span className="font-semibold text-foreground">{Math.floor(Number(form.totalTokens) * Number(form.investorOwnership) / 100).toLocaleString()}</span></div>}
+                </div>
+              )}
+            </div>
+          </>
+        )}
 
         <div className="glass-card rounded-xl p-6 space-y-5">
           <h2 className="font-semibold text-foreground border-b border-border pb-3">Collection Link</h2>
@@ -226,7 +249,7 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
         </div>
 
         <div className="flex items-center justify-end gap-3">
-          <Button type="button" variant="outline" onClick={() => navigate(mode === "edit" && artwork ? `/museum/collections-groups/artworks/${artwork.id}` : backTo)}>Cancel</Button>
+          <Button type="button" variant="outline" onClick={() => navigate(mode === "edit" && artwork ? `/Workspace/collections/artworks/${artwork.id}` : backTo)}>Cancel</Button>
           <Button type="submit">{mode === "edit" ? "Save Artwork" : "Add Artwork"}</Button>
         </div>
       </form>
@@ -235,3 +258,4 @@ const ArtworkEditor = ({ mode }: ArtworkEditorProps) => {
 };
 
 export default ArtworkEditor;
+

@@ -53,40 +53,30 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/museum" element={<MuseumLayout />}>
-              <Route index element={<MuseumDashboard />} />
-              <Route path="collections-groups" element={<CollectionsGroups />} />
-              <Route path="collections-groups/add" element={<CollectionGroupEditor mode="add" />} />
-              <Route path="collections-groups/:id/edit" element={<CollectionGroupEditor mode="edit" />} />
-              <Route path="collections-groups/artworks" element={<Collection />} />
-              <Route path="collections-groups/artworks/add" element={<AddCollection />} />
-              <Route path="collections-groups/artworks/:id" element={<CollectionDetail />} />
-              <Route path="collections-groups/artworks/:id/edit" element={<ArtworkEditor mode="edit" />} />
-              <Route path="collections-groups/experiences" element={<Experiences />} />
-              <Route path="collections-groups/experiences/add" element={<AddExperience />} />
-              <Route path="collections-groups/experiences/:id" element={<ExperienceDetail />} />
-              <Route path="collections-groups/experiences/:id/edit" element={<ExperienceEditor mode="edit" />} />
-              <Route path="artworks" element={<Collection />} />
-              <Route path="artworks/add" element={<AddCollection />} />
-              <Route path="artworks/:id" element={<CollectionDetail />} />
-              <Route path="artworks/:id/edit" element={<ArtworkEditor mode="edit" />} />
-              <Route path="collection" element={<Collection />} />
-              <Route path="collection/add" element={<AddCollection />} />
-              <Route path="collection/:id" element={<CollectionDetail />} />
-              <Route path="collection/:id/edit" element={<ArtworkEditor mode="edit" />} />
+            <Route path="/Workspace" element={<MuseumLayout />}>
+              <Route path="dashboard" element={<MuseumDashboard />} />
+              <Route path="collections" element={<CollectionsGroups />} />
+              <Route path="collections/add" element={<CollectionGroupEditor mode="add" />} />
+              <Route path="collections/:id/edit" element={<CollectionGroupEditor mode="edit" />} />
+              <Route path="collections/artworks" element={<Collection />} />
+              <Route path="collections/artworks/add" element={<AddCollection />} />
+              <Route path="collections/artworks/:id" element={<CollectionDetail />} />
+              <Route path="collections/artworks/:id/edit" element={<ArtworkEditor mode="edit" />} />
+              <Route path="collections/experiences" element={<Experiences />} />
+              <Route path="collections/experiences/add" element={<AddExperience />} />
+              <Route path="collections/experiences/:id" element={<ExperienceDetail />} />
+              <Route path="collections/experiences/:id/edit" element={<ExperienceEditor mode="edit" />} />
               <Route path="reaccessioning" element={<Reaccessioning />} />
               <Route path="governance" element={<Governance />} />
               <Route path="blockchain" element={<Blockchain />} />
               <Route path="compliance" element={<Compliance />} />
+            </Route>
+            <Route path="/Insights" element={<MuseumLayout />}>
               <Route path="analytics" element={<Analytics />} />
               <Route path="stakeholders" element={<Stakeholders />} />
               <Route path="community" element={<Community />} />
-              <Route path="settings" element={<MuseumSettings />} />
               <Route path="voting" element={<VotingListings />} />
-              <Route path="experiences" element={<Experiences />} />
-              <Route path="experiences/:id" element={<ExperienceDetail />} />
-              <Route path="experiences/add" element={<AddExperience />} />
-              <Route path="experiences/:id/edit" element={<ExperienceEditor mode="edit" />} />
+              <Route path="settings" element={<MuseumSettings />} />
             </Route>
             <Route path="/stakeholder" element={<StakeholderLayout />}>
               <Route index element={<Portfolio />} />

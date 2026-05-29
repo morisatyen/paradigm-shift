@@ -7,21 +7,21 @@ const MODULES = [
     key: "collections",
     title: "Collections",
     count: COLLECTIONS.length,
-    to: "/museum/collections-groups",
+    to: "/Workspace/collections",
     icon: Layers,
   },
   {
     key: "artworks",
     title: "Artworks",
     count: ARTWORKS.length,
-    to: "/museum/collections-groups/artworks",
+    to: "/Workspace/collections/artworks",
     icon: Image,
   },
   {
     key: "experiences",
     title: "Experiences",
     count: EXPERIENCES.length,
-    to: "/museum/collections-groups/experiences",
+    to: "/Workspace/collections/experiences",
     icon: Sparkles,
   },
 ];
@@ -36,7 +36,7 @@ const ContentTypeCards = () => {
         {MODULES.map((module) => {
           const active =
             module.key === "collections"
-              ? location.pathname === module.to || !location.pathname.includes("/artworks") && !location.pathname.includes("/experiences") && location.pathname.startsWith("/museum/collections-groups")
+              ? location.pathname === module.to || !location.pathname.includes("/artworks") && !location.pathname.includes("/experiences") && location.pathname.startsWith("/Workspace/collections")
               : location.pathname.startsWith(module.to);
 
           return (

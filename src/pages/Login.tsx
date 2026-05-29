@@ -18,7 +18,7 @@ const Login = () => {
     setError("");
     const success = login(email, password);
     if (success) {
-      if (email === "museum@demo.com") navigate("/museum");
+      if (email === "museum@demo.com") navigate("/Workspace/dashboard");
       else navigate("/stakeholder");
     } else {
       setError("Use museum@demo.com or investor@demo.com with any password");

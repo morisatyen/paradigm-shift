@@ -9,7 +9,7 @@ const Blockchain = () => {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Blockchain</h1>
-      <p className="text-muted-foreground text-sm mt-1 mb-8">Real-time transaction feed & network metrics</p>
+      <p className="text-muted-foreground text-sm mt-1 mb-8">Real-time transaction feed and network metrics</p>
 
       <div className="grid md:grid-cols-4 gap-4 mb-8">
         <div className="glass-card rounded-xl p-5">
@@ -52,7 +52,7 @@ const Blockchain = () => {
                 "Time",
                 "Status",
               ].map((h) => (
-                <th key={h} className="p-4 pt-0 text-left text-xs font-medium text-muted-foreground">
+                <th key={h} className="p-4 pt-0 text-left text-sm font-bold text-muted-foreground">
                   {h}
                 </th>
               ))}

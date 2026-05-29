@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EXPERIENCES, COLLECTIONS } from "@/data/mockData";
 import { QRCodeSVG } from "qrcode.react";
@@ -48,7 +48,7 @@ const Experiences = () => {
               <List className="w-4 h-4" />
             </button>
           </div>
-          <Button onClick={() => navigate("/museum/collections-groups/experiences/add")}>
+          <Button onClick={() => navigate("/Workspace/collections/experiences/add")}>
             <Plus className="w-4 h-4 mr-2" />Add Experience
           </Button>
         </div>
@@ -109,7 +109,7 @@ const Experiences = () => {
                   )}
 
                   <div className="flex justify-end">
-                    <Button variant="outline" size="sm" onClick={() => navigate(`/museum/collections-groups/experiences/${experience.id}`)}>
+                    <Button variant="outline" size="sm" onClick={() => navigate(`/Workspace/collections/experiences/${experience.id}`)}>
                       <Eye className="w-4 h-4 mr-1.5" />View Details
                     </Button>
                   </div>
@@ -148,7 +148,7 @@ const Experiences = () => {
                   <td className="p-4 text-sm text-foreground">{experience.capacity}</td>
                   <td className="p-4 text-sm text-warning font-medium">{experience.avgRating}</td>
                   <td className="p-4">
-                    <button onClick={() => navigate(`/museum/collections-groups/experiences/${experience.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+                    <button onClick={() => navigate(`/Workspace/collections/experiences/${experience.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
                   </td>
@@ -205,3 +205,4 @@ const Experiences = () => {
 };
 
 export default Experiences;
+

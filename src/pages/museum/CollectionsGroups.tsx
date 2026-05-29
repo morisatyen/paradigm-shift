@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { COLLECTIONS, ARTWORKS, EXPERIENCES } from "@/data/mockData";
 import { QRCodeSVG } from "qrcode.react";
@@ -34,7 +34,7 @@ const CollectionsGroups = () => {
       <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
         <div>
           <h1 className="text-2xl font-heading font-bold text-foreground">Collections</h1>
-          <p className="text-muted-foreground text-sm mt-1">{filtered.length} curated collections available to manage</p>
+          <p className="text-muted-foreground text-sm mt-1">Four curated collections currently under management</p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <div className="relative">
@@ -49,7 +49,7 @@ const CollectionsGroups = () => {
               <List className="w-4 h-4" />
             </button>
           </div>
-          <Button onClick={() => navigate("/museum/collections-groups/add")}>
+          <Button onClick={() => navigate("/Workspace/collections/add")}>
             <Plus className="w-4 h-4 mr-2" />Add Collection
           </Button>
         </div>
@@ -77,7 +77,7 @@ const CollectionsGroups = () => {
                         <div className="flex items-center gap-1 text-sm font-semibold"><Star className="w-4 h-4 text-warning" />{collection.avgRating}</div>
                         <div className="text-xs text-white/60">{collection.totalVotes} votes</div>
                       </div>
-                      <button onClick={() => navigate(`/museum/collections-groups/${collection.id}/edit`)} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+                      <button onClick={() => navigate(`/Workspace/collections/${collection.id}/edit`)} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
                         <Pencil className="w-4 h-4" />
                       </button>
                       <button onClick={() => setDeleteTarget({ id: collection.id, name: collection.name })} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
@@ -96,7 +96,7 @@ const CollectionsGroups = () => {
                       <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Artworks</span>
                       <span className="text-xs bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{artworks.length}</span>
                     </div>
-                    <button onClick={() => navigate(`/museum/collections-groups/artworks/add?collectionId=${collection.id}`)} className="flex items-center gap-1 text-xs text-secondary hover:text-secondary/80 font-medium">
+                    <button onClick={() => navigate(`/Workspace/collections/artworks/add?collectionId=${collection.id}`)} className="flex items-center gap-1 text-xs text-secondary hover:text-secondary/80 font-medium">
                       + Add Artwork
                     </button>
                   </div>
@@ -109,7 +109,7 @@ const CollectionsGroups = () => {
                           <div className="text-xs text-muted-foreground">{artwork.artist}, {artwork.year}</div>
                           <div className="text-xs text-secondary font-medium">{artwork.tokenSymbol}</div>
                         </div>
-                        <button onClick={() => navigate(`/museum/collections-groups/artworks/${artwork.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
+                        <button onClick={() => navigate(`/Workspace/collections/artworks/${artwork.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
                           <Eye className="w-4 h-4" />
                         </button>
                       </div>
@@ -123,7 +123,7 @@ const CollectionsGroups = () => {
                       <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Experiences</span>
                       <span className="text-xs bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{experiences.length}</span>
                     </div>
-                    <button onClick={() => navigate(`/museum/collections-groups/experiences/add?collectionId=${collection.id}`)} className="flex items-center gap-1 text-xs text-secondary hover:text-secondary/80 font-medium">
+                    <button onClick={() => navigate(`/Workspace/collections/experiences/add?collectionId=${collection.id}`)} className="flex items-center gap-1 text-xs text-secondary hover:text-secondary/80 font-medium">
                       + Add Experience
                     </button>
                   </div>
@@ -148,7 +148,7 @@ const CollectionsGroups = () => {
                           <button onClick={() => setQrTarget({ id: experience.id, name: experience.title, isExp: true })} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
                             <QrCode className="w-4 h-4" />
                           </button>
-                          <button onClick={() => navigate(`/museum/collections-groups/experiences/${experience.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
+                          <button onClick={() => navigate(`/Workspace/collections/experiences/${experience.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground shrink-0">
                             <Eye className="w-4 h-4" />
                           </button>
                         </div>
@@ -190,7 +190,7 @@ const CollectionsGroups = () => {
                     <td className="p-4 text-sm text-warning font-medium">{collection.avgRating}</td>
                     <td className="p-4 text-sm text-muted-foreground">{collection.totalVotes}</td>
                     <td className="p-4">
-                      <button onClick={() => navigate(`/museum/collections-groups/${collection.id}/edit`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+                      <button onClick={() => navigate(`/Workspace/collections/${collection.id}/edit`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
                         <Pencil className="w-4 h-4" />
                       </button>
                     </td>
@@ -269,3 +269,4 @@ const CollectionsGroups = () => {
 };
 
 export default CollectionsGroups;
+

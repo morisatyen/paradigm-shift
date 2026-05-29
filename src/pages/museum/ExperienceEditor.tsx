@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ARTWORKS, COLLECTIONS, EXPERIENCES } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
@@ -73,12 +73,12 @@ const ExperienceEditor = ({ mode }: ExperienceEditorProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!validate()) return;
-    navigate(mode === "edit" && experience ? `/museum/collections-groups/experiences/${experience.id}` : form.collectionId ? "/museum/collections-groups" : "/museum/collections-groups/experiences");
+    navigate(mode === "edit" && experience ? `/Workspace/collections/experiences/${experience.id}` : form.collectionId ? "/Workspace/collections" : "/Workspace/collections/experiences");
   };
 
   return (
     <div className="p-8 max-w-7xl mx-auto w-full">
-      <Link to={form.collectionId ? "/museum/collections-groups" : "/museum/collections-groups/experiences"} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
+      <Link to={form.collectionId ? "/Workspace/collections" : "/Workspace/collections/experiences"} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" />{form.collectionId ? "Back to Collections" : "Back to Experiences"}
       </Link>
 
@@ -143,7 +143,7 @@ const ExperienceEditor = ({ mode }: ExperienceEditorProps) => {
         </div>
 
         <div className="flex items-center justify-end gap-3">
-          <Button type="button" variant="outline" onClick={() => navigate(mode === "edit" && experience ? `/museum/collections-groups/experiences/${experience.id}` : form.collectionId ? "/museum/collections-groups" : "/museum/collections-groups/experiences")}>Cancel</Button>
+          <Button type="button" variant="outline" onClick={() => navigate(mode === "edit" && experience ? `/Workspace/collections/experiences/${experience.id}` : form.collectionId ? "/Workspace/collections" : "/Workspace/collections/experiences")}>Cancel</Button>
           <Button type="submit">{mode === "edit" ? "Save Experience" : "Add Experience"}</Button>
         </div>
       </form>
@@ -152,3 +152,4 @@ const ExperienceEditor = ({ mode }: ExperienceEditorProps) => {
 };
 
 export default ExperienceEditor;
+

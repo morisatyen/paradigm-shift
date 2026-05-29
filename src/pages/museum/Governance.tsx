@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 const Governance = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Governance</h1>
-    <p className="text-muted-foreground text-sm mt-1 mb-8">Multi-signature voting panel</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Active proposals, board signatures, and historical resolutions</p>
 
     <div className="space-y-6">
       {GOVERNANCE_PROPOSALS.map(p => {
@@ -23,7 +23,10 @@ const Governance = () => (
               </div>
               {p.status === "active" && (
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="text-success border-success/30 hover:bg-success/10"><ThumbsUp className="w-4 h-4 mr-1" />Approve</Button>
+                  <Button size="sm" className="bg-green-600 text-white hover:bg-green-300">
+                    <ThumbsUp className="w-4 h-4 mr-1" />
+                    Approve
+                  </Button>
                   <Button size="sm" variant="outline" className="text-destructive border-destructive/30 hover:bg-destructive/10"><ThumbsDown className="w-4 h-4 mr-1" />Reject</Button>
                 </div>
               )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ARTWORKS } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
@@ -38,7 +38,7 @@ const Collection = () => {
               <List className="w-4 h-4" />
             </button>
           </div>
-          <Button onClick={() => navigate("/museum/collections-groups/artworks/add")}><Plus className="w-4 h-4 mr-2" />Add Artwork</Button>
+          <Button onClick={() => navigate("/Workspace/collections/artworks/add")}><Plus className="w-4 h-4 mr-2" />Add Artwork</Button>
         </div>
       </div>
 
@@ -48,7 +48,7 @@ const Collection = () => {
             <div key={artwork.id} className="glass-card rounded-xl overflow-hidden">
               <div className="aspect-[4/3] overflow-hidden relative">
                 <img src={artwork.image} alt={artwork.title} className="w-full h-full object-cover" />
-                <button onClick={() => navigate(`/museum/collections-groups/artworks/${artwork.id}`)} className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors">
+                <button onClick={() => navigate(`/Workspace/collections/artworks/${artwork.id}`)} className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors">
                   <Eye className="w-4 h-4" />
                 </button>
               </div>
@@ -101,7 +101,7 @@ const Collection = () => {
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${artwork.status === "active" ? "bg-success/10 text-success" : "bg-warning/10 text-warning"}`}>{artwork.status}</span>
                   </td>
                   <td className="p-4">
-                    <button onClick={() => navigate(`/museum/collections-groups/artworks/${artwork.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+                    <button onClick={() => navigate(`/Workspace/collections/artworks/${artwork.id}`)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
                   </td>
@@ -116,3 +116,4 @@ const Collection = () => {
 };
 
 export default Collection;
+

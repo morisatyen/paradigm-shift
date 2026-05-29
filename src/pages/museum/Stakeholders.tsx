@@ -12,7 +12,7 @@ const Stakeholders = () => {
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
-        <div><h1 className="text-2xl font-heading font-bold text-foreground">Stakeholders</h1><p className="text-muted-foreground text-sm mt-1">{STAKEHOLDERS.length} fractional owners</p></div>
+        <div><h1 className="text-2xl font-heading font-bold text-foreground">Stakeholders</h1><p className="text-muted-foreground text-sm mt-1">Five fractional owners across the portfolio — investors, patrons, and collectors</p></div>
         <div className="relative"><Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><Input placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9 w-64" /></div>
       </div>
 

@@ -12,7 +12,7 @@ const culturalData = [
 const Analytics = () => (
   <div className="p-8">
     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">Analytics</h1>
-    <p className="text-muted-foreground text-sm mt-1 mb-8">Cultural impact & performance metrics</p>
+    <p className="text-muted-foreground text-sm mt-1 mb-8">Cultural impact and performance metrics across the portfolio</p>
 
     <div className="grid md:grid-cols-4 gap-4 mb-8">
       {[{ label: "Cultural Impact Score", value: "94/100", icon: Heart }, { label: "Monthly Visitors", value: "285K", icon: Eye }, { label: "Global Reach", value: "42 Countries", icon: Globe }, { label: "YoY Growth", value: "+22.1%", icon: TrendingUp }].map(m => (
